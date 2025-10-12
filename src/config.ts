@@ -9,7 +9,7 @@ import { LinkPreset } from "./types/config";
 
 export const siteConfig: SiteConfig = {
 	title: "Cannian",
-	subtitle: "Demo Site",
+	subtitle: "Blog Site",
 	lang: "zh_CN", // Language code, e.g. 'en', 'zh_CN', 'ja', etc.
 	themeColor: {
 		hue: 250, // Default hue for the theme color, from 0 to 360. e.g. red: 0, teal: 200, cyan: 250, pink: 345
@@ -17,7 +17,7 @@ export const siteConfig: SiteConfig = {
 	},
 	banner: {
 		enable: true,
-		src: "assets/images/banner1.jpg", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
+		src: "https://vip.123pan.cn/1826899604/yk6baz03t0l000d7w33fs266q9y2xyozDIYvAqY2BIQOAcx1AdFy.jpg", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
 		position: "center", // Equivalent to object-position, only supports 'top', 'center', 'bottom'. 'center' by default
 		credit: {
 			enable: false, // Display the credit text of the banner image
@@ -53,7 +53,7 @@ export const navBarConfig: NavBarConfig = {
 };
 
 export const profileConfig: ProfileConfig = {
-	avatar: "assets/images/艾尼斯.jpg", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
+	avatar: "https://vip.123pan.cn/1826899604/yk6baz03t0m000d7w33girwfizdpc39iDIYvAqY2BIQOAcx1AdFy.jpg", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
 	name: "Cannian",
 	bio: "正在学习...",
 	links: [
