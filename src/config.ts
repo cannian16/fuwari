@@ -45,6 +45,11 @@ export const navBarConfig: NavBarConfig = {
 		LinkPreset.Archive,
 		LinkPreset.About,
 		{
+			name: "友链",
+			url: "/friends/", // Internal links should not include the base path, as it is automatically added
+			external: false, // Show an external link icon and will open in a new tab
+		},
+		{
 			name: "开往",
 			url: "https://www.travellings.cn/go.html", // Internal links should not include the base path, as it is automatically added
 			external: true, // Show an external link icon and will open in a new tab
@@ -53,7 +58,8 @@ export const navBarConfig: NavBarConfig = {
 };
 
 export const profileConfig: ProfileConfig = {
-	avatar: "https://vip.123pan.cn/1826899604/yk6baz03t0m000d7w33girwfizdpc39iDIYvAqY2BIQOAcx1AdFy.jpg", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
+	avatar:
+		"https://vip.123pan.cn/1826899604/yk6baz03t0m000d7w33girwfizdpc39iDIYvAqY2BIQOAcx1AdFy.jpg", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
 	name: "Cannian",
 	bio: "正在学习...",
 	links: [
@@ -78,7 +84,7 @@ export const profileConfig: ProfileConfig = {
 			name: "Email",
 			icon: "fa6-solid:envelope",
 			url: "mailto:1804781568@qq.com",
-		}
+		},
 	],
 };
 
