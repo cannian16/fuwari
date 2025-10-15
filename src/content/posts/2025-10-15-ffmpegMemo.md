@@ -1,9 +1,9 @@
 ---
 title: ffmpeg备忘
-published: 2025-10-14
+published: 2025-10-15
 description: '记录一下ffmpeg的命令，需要的时候直接在这复制'
 image: ''
-tags: [markdwon]
+tags: [ffmpeg]
 category: '备忘'
 draft: true 
 lang: ''

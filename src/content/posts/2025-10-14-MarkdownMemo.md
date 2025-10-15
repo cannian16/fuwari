@@ -78,6 +78,7 @@ _斜体_, **黑体**, `高亮`
 
 ## 代码块
 使用两行\`\`\`
+一般来说bash中<必选参数>,[可选参数]
 ```python
 print("hello world")#这是注释
 ```
@@ -176,7 +177,31 @@ $$I = \int \rho R^{2} dV$$
 ### Bilibili
 <iframe width="100%" height="468" src="//player.bilibili.com/player.html?bvid=BV1JA411h7Gw&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 
-# markdown拓展
+## 文章的元数据
+
+```yaml
+---
+title: My First Blog Post
+published: 2023-09-09
+description: This is the first post of my new Astro blog.
+image: ./cover.jpg
+tags: [Foo, Bar]
+category: Front-end
+draft: false
+---
+```
+
+| 属性     | 描述                                                                                                                                                                                                 |
+|---------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `title`       | 帖子的标题。                                                                                                                                                                                      |
+| `published`   | 帖子发布的日期。                                                                                                                                                                           |
+| `description` | 帖子的简短描述。显示在索引页面上。                                                                                                                                                   |
+| `image`       | 帖子的封面图片路径。 |
+| `tags`        | 帖子的标签。                                                                                                                                                                                       |
+| `category`    | 帖子的类别。                                                                                                                                                                                   |
+| `draft`        | 如果此帖子仍然是草稿，则不会显示。     
+
+## markdown拓展
 
 ::github{repo="cannian/fuwari"}
 
