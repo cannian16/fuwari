@@ -8,6 +8,7 @@ category: '备忘'
 draft: false 
 lang: ''
 ---
+**官网**:https://www.python.org/
 # python自带的虚拟环境
 ## 创建虚拟环境
 ```bash

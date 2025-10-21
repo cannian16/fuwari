@@ -8,6 +8,8 @@ category: '备忘'
 draft: true 
 lang: ''
 ---
+
+**官网**:https://www.ffmpeg.org/
 # 基本用法
 
 ```bash
