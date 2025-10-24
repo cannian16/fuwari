@@ -35,3 +35,7 @@ pip freeze
 #把requirements.txt里的依赖全安装下来
 pip install -r requirements.txt
 ```
+# 常用的库
+- opencv-python
+- matplotlib
+- numpy
