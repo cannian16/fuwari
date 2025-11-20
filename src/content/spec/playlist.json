@@ -1,0 +1,58 @@
+{
+  "songs": [
+    {
+      "title": "Old Stories",
+      "artist": "Kevin Penkin",
+      "url": "https://vip.123pan.cn/1826899604/20984018",
+      "cover": "/music/Old-Stories.jpg"
+    },
+    {
+      "title": "恐怖的房子", 
+      "artist": "超级市场",
+      "url": "https://vip.123pan.cn/1826899604/20984022",
+      "cover": "/music/恐怖的房子.png"
+    },
+    {
+      "title": "負けヒロインのテーマ",
+      "artist": "うたたね歌菜", 
+      "url": "https://vip.123pan.cn/1826899604/20984016",
+      "cover": "/music/負けヒロインのテーマ.jpg"
+    },
+    {
+      "title": "陽菜と、走る帆高",
+      "artist": "RADWIMPS", 
+      "url": "https://vip.123pan.cn/1826899604/20984017",
+      "cover": "/music/陽菜と、走る帆高.jpg"
+    },
+    {
+      "title": "Sanctuary in the Glades",
+      "artist": "Gareth Coker", 
+      "url": "https://vip.123pan.cn/1826899604/20984023",
+      "cover": "/music/Sanctuary-in-the-Glades.png"
+    },
+    {
+      "title": "counter・attack-mankind",
+      "artist": "澤野弘之 (さわの ひろゆき)", 
+      "url": "https://vip.123pan.cn/1826899604/20984024",
+      "cover": "/music/counter・attack-mankind.jpg"
+    },
+    {
+      "title": "Hanezeve Caradhina",
+      "artist": "Kevin Penkin", 
+      "url": "https://vip.123pan.cn/1826899604/20984019",
+      "cover": "/music/Hanezeve-Caradhina.jpg"
+    },
+    {
+      "title": "スパークル",
+      "artist": "RADWIMPS", 
+      "url": "https://vip.123pan.cn/1826899604/20984020",
+      "cover": "/music/スパークル.jpg"
+    },
+    {
+      "title": "Greenpath",
+      "artist": "Christopher Larkin", 
+      "url": "https://vip.123pan.cn/1826899604/20984021",
+      "cover": "/music/Greenpath.jpg"
+    }
+  ]
+}

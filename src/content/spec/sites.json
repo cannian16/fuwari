@@ -1,0 +1,54 @@
+[
+	{
+		"Category": "前端",
+		"sites": [
+			{
+				"name": "MDN Web Docs",
+				"url": "https://developer.mozilla.org/zh-CN/"
+			},
+			{
+				"name": "W3Schools",
+				"url": "https://www.w3schools.com/"
+			}
+		]
+	},
+	{
+		"Category": "后端",
+		"sites": [
+			{
+				"name": "Dribbble",
+				"url": "https://dribbble.com/"
+			},
+			{
+				"name": "Behance",
+				"url": "https://www.behance.net/"
+			}
+		]
+	},
+	{
+		"Category": "运维",
+		"sites": [
+			{
+				"name": "Stack Overflow",
+				"url": "https://stackoverflow.com/"
+			},
+			{
+				"name": "GitHub",
+				"url": "https://dribbble.com/"
+			}
+		]
+	},
+	{
+		"Category": "其他",
+		"sites": [
+			{
+				"name": "Stack Overflow",
+				"url": "https://stackoverflow.com/"
+			},
+			{
+				"name": "GitHub",
+				"url": "https://dribbble.com/"
+			}
+		]
+	}
+]

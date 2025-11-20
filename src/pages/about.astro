@@ -1,0 +1,32 @@
+---
+import TechStackMarquee from "../components/TechStackMarquee.svelte";
+import { getEntry, render } from "astro:content";
+import Markdown from "@components/misc/Markdown.astro";
+import I18nKey from "../i18n/i18nKey";
+import { i18n } from "../i18n/translation";
+import MainGridLayout from "../layouts/MainGridLayout.astro";
+
+const aboutPost = await getEntry("spec", "about");
+
+if (!aboutPost) {
+	throw new Error("About page content not found");
+}
+
+const { Content } = await render(aboutPost);
+---
+<MainGridLayout title={i18n(I18nKey.about)} description={i18n(I18nKey.about)}>
+    <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
+        <div class="card-base z-10 px-9 py-6 relative w-full ">
+            <Markdown class="mt-2">
+                <Content />
+            </Markdown>
+            <Markdown class="mt-2">
+                <h1>工具库</h1>
+                <p>
+                    我使用过的，正在使用的，或者计划使用的各种工具、框架和技术栈都在这里展示。
+                </p>
+            </Markdown>
+            <TechStackMarquee client:load speed={40}/>
+        </div>
+    </div>
+</MainGridLayout>

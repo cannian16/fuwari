@@ -1,0 +1,187 @@
+{
+	"categories": {
+		"firstline": {
+			"items": [
+				{
+					"name": "Ps",
+					"logo": "https://www.adobe.com/cc-shared/assets/img/product-icons/svg/photoshop-56.svg",
+					"url": "https://www.adobe.com/products/photoshop.html"
+				},
+				{
+					"name": "Vue.js",
+					"logo": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg",
+					"url": "https://vuejs.org"
+				},
+				{
+					"name": "Svelte",
+					"logo": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/svelte/svelte-original.svg",
+					"url": "https://svelte.dev"
+				},
+				{
+					"name": "opencv",
+					"logo": "https://vip.123pan.cn/1826899604/ymjew503t0l000d7w32xioom12c711phDIYvAqY2BIQOAcx1AdFy.webp",
+					"url": "https://opencv.org/"
+				},
+				{
+					"name": "nginx",
+					"logo": "https://vip.123pan.cn/1826899604/yk6baz03t0n000d7w33hhsdl8j8t341mDIYvAqY2BIQOAcx1AdFy.png",
+					"url": "https://nginx.org/"
+				},
+				{
+					"name": "Astro",
+					"logo": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/astro/astro-original.svg",
+					"url": "https://astro.build"
+				},
+				{
+					"name": "C",
+					"logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/The_C_Programming_Language_logo.svg/320px-The_C_Programming_Language_logo.svg.png",
+					"url": "https://www.open-std.org/jtc1/sc22/wg14/"
+				},
+				{
+					"name": "gnu",
+					"logo": "https://www.gnu.org/graphics/heckert_gnu.transp.small.png",
+					"url": "https://www.gnu.org/"
+				},
+				{
+					"name": "css",
+					"logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Official_CSS_Logo.svg/250px-Official_CSS_Logo.svg.png",
+					"url": "https://developer.mozilla.org/zh-CN/docs/Web/CSS"
+				},
+				{
+					"name": "Java",
+					"logo": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg",
+					"url": "https://java.com"
+				},
+				{
+					"name": "homebrew",
+					"logo": "https://brew.sh/assets/img/homebrew.svg",
+					"url": "https://brew.sh/"
+				}
+			]
+		},
+		"secondline": {
+			"items": [
+				{
+					"name": "Pr",
+					"logo": "https://www.adobe.com/cc-shared/assets/img/product-icons/svg/premiere-pro.svg",
+					"url": "https://www.adobe.com/products/premiere.html"
+				},
+				{
+					"name": "Node.js",
+					"logo": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
+					"url": "https://nodejs.org"
+				},
+				{
+					"name": "uv",
+					"logo": "https://docs.astral.sh/uv/assets/logo-letter.svg",
+					"url": "https://docs.astral.sh/uv/"
+				},
+				{
+					"name": "SQLite",
+					"logo": "https://vip.123pan.cn/1826899604/yk6baz03t0n000d7w33hhscy8q8sc2mwDIYvAqY2BIQOAcx1AdFy.png",
+					"url": "https://sqlite.org/"
+				},
+				{
+					"name": "FFmpeg",
+					"logo": "https://ts2.tc.mm.bing.net/th/id/ODF.URx-xOMZoUJ4iSg_5VkxyA?w=32&h=32&qlt=90&pcl=fffffc&o=6&pid=1.2",
+					"url": "https://ffmpeg.org/"
+				},
+				{
+					"name": "MySQL",
+					"logo": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg",
+					"url": "https://mysql.com"
+				},
+				{
+					"name": "Neovim",
+					"logo": "https://vip.123pan.cn/1826899604/yk6baz03t0l000d7w33fwm3bzpdhywkiDIYvAqY2BIQOAcx1AdFy.png",
+					"url": "https://neovim.io/"
+				},
+				{
+					"name": "Numpy",
+					"logo": "https://numpy.org/images/logo.svg",
+					"url": "https://numpy.org/"
+				},
+				{
+					"name": "flask",
+					"logo": "https://vip.123pan.cn/1826899604/yk6baz03t0n000d7w33hhsge1q8w1p8uDIYvAqY2BIQOAcx1AdFy.png",
+					"url": "https://flask.palletsprojects.com/en/stable/"
+				},
+				{
+					"name": "HTML5",
+					"logo": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg",
+					"url": "https://developer.mozilla.org/en-US/docs/Web/HTML"
+				},
+				{
+					"name": "Axios",
+					"logo": "https://avatars.githubusercontent.com/u/32372333?s=48&v=4",
+					"url": "https://axios-http.com/"
+				}
+			]
+		},
+		"thirdline": {
+			"items": [
+				{
+					"name": "TypeScript",
+					"logo": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg",
+					"url": "https://typescriptlang.org"
+				},
+				{
+					"name": "JavaScript",
+					"logo": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
+					"url": "https://developer.mozilla.org/javascript"
+				},
+				{
+					"name": "Python",
+					"logo": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",
+					"url": "https://python.org"
+				},
+				{
+					"name": "Tailwind CSS",
+					"logo": "https://tailwindcss.com/_next/static/media/tailwindcss-mark.d52e9897.svg",
+					"url": "https://tailwindcss.com"
+				},
+				{
+					"name": "Git",
+					"logo": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg",
+					"url": "https://git-scm.com"
+				},
+				{
+					"name": "VS Code",
+					"logo": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg",
+					"url": "https://code.visualstudio.com"
+				},
+				{
+					"name": "LazyVim",
+					"logo": "https://www.lazyvim.org/img/icon.svg",
+					"url": "https://www.lazyvim.org/"
+				},
+				{
+					"name": "Docker",
+					"logo": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg",
+					"url": "https://docker.com"
+				},
+				{
+					"name": "springboot",
+					"logo": "https://spring.io/img/projects/spring-boot.svg",
+					"url": "https://spring.io/projects/spring-boot"
+				},
+				{
+					"name": "Maven",
+					"logo": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/maven/maven-original.svg",
+					"url": "https://maven.apache.org/"
+				},
+				{
+					"name": "godot",
+					"logo": "https://vip.123pan.cn/1826899604/ymjew503t0n000d7w32yebkma37l7wloDIYvAqY2BIQOAcx1AdFy.png",
+					"url": "https://godotengine.org/"
+				},
+				{
+					"name": "chocolatey",
+					"logo": "https://img.chocolatey.org/logos/chocolatey.svg",
+					"url": "https://chocolatey.org/"
+				}
+			]
+		}
+	},
+	"displayOrder": ["firstline", "secondline", "thirdline"]
+}
