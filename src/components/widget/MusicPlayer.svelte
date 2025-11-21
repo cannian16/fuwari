@@ -1,7 +1,5 @@
 <script>
   import { onMount } from 'svelte';
-  
-  // 从 JSON 文件导入歌单
   import playlistData from '../../content/spec/playlist.json';
   
   let isPlaying = false;
@@ -11,21 +9,14 @@
   
   // 初始化歌单
   onMount(() => {
-    audioElement.addEventListener('play', () => {
-      isPlaying = true;
-    });
-    
-    audioElement.addEventListener('pause', () => {
-      isPlaying = false;
-    });
     songs = playlistData.songs || [];
     if (songs.length > 0) {
       audioElement.src = songs[currentSongIndex].url;
-      audioElement.volume = 0.3; // 设置音量为30%
+      audioElement.volume = 0.3;
     }
   });
   
-  // 播放/暂停切换
+  // 播放/暂停切换 - 简化版本
   const togglePlay = () => {
     if (!audioElement || songs.length === 0) return;
     
@@ -34,7 +25,6 @@
     } else {
       audioElement.play();
     }
-    isPlaying = !isPlaying;
   };
   
   // 播放下一首
@@ -43,10 +33,7 @@
     
     currentSongIndex = (currentSongIndex + 1) % songs.length;
     audioElement.src = songs[currentSongIndex].url;
-    
-    if (isPlaying) {
-      audioElement.play();
-    }
+    audioElement.play();
   };
   
   // 播放上一首
@@ -55,20 +42,26 @@
     
     currentSongIndex = currentSongIndex === 0 ? songs.length - 1 : currentSongIndex - 1;
     audioElement.src = songs[currentSongIndex].url;
-    
-    if (isPlaying) {
-      audioElement.play();
-    }
+    audioElement.play();
   };
   
-  // 自动播放下一首
+  // 音频事件处理
+  const handlePlay = () => {
+    isPlaying = true;
+  };
+  
+  const handlePause = () => {
+    isPlaying = false;
+  };
+  
   const handleEnded = () => {
-    playNext();
+    isPlaying = false; // 歌曲结束，设置为暂停状态
+    playNext(); // 播放下一首
   };
 </script>
 
 <div class="pb-4 card-base">
-
+  <!-- 标题部分保持不变 -->
   <div class="font-bold transition text-lg text-neutral-900 dark:text-neutral-100 relative ml-8 mt-4 mb-2
         before:w-1 before:h-4 before:rounded-md before:bg-[var(--primary)]
         before:absolute before:left-[-16px] before:top-[5.5px]">
@@ -104,7 +97,7 @@
     <!-- 上一首 -->
     <button 
       on:click={playPrevious}
-      class="dark:text-white"
+      class="dark:text-white {songs.length === 0 ? 'opacity-50 cursor-not-allowed' : ''}"
       title="上一首"
       disabled={songs.length === 0}
     >
@@ -116,18 +109,16 @@
     <!-- 播放/暂停 -->
     <button 
       on:click={togglePlay}
-      class="dark:text-white"
+      class="dark:text-white {songs.length === 0 ? 'opacity-50 cursor-not-allowed' : ''}"
       title={isPlaying ? '暂停' : '播放'}
       disabled={songs.length === 0}
     >
       {#if isPlaying}
-        <!-- 暂停图标 -->
         <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
           <rect x="6" y="4" width="4" height="16"></rect>
           <rect x="14" y="4" width="4" height="16"></rect>
         </svg>
       {:else}
-        <!-- 播放图标 -->
         <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
           <path d="M8 5v14l11-7z"></path>
         </svg>
@@ -137,7 +128,7 @@
     <!-- 下一首 -->
     <button 
       on:click={playNext}
-      class="dark:text-white"
+      class="dark:text-white {songs.length === 0 ? 'opacity-50 cursor-not-allowed' : ''}"
       title="下一首"
       disabled={songs.length === 0}
     >
@@ -149,6 +140,8 @@
   
   <audio
     bind:this={audioElement}
+    on:play={handlePlay}
+    on:pause={handlePause}
     on:ended={handleEnded}
     preload="metadata"
   ></audio>
