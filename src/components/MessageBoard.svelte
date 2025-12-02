@@ -217,7 +217,7 @@ function getMessageColorClass(index) {
       <div class="loading">加载中...</div>
     {:else if messages.length === 0}
       <div class="no-messages">暂无留言</div>
-    {:else}
+    {:else} 
       <div class="messages-list">
         {#each messages as message,index (message.id)}
           <div class="flex gap-4 p-4 rounded-lg my-4 {getMessageColorClass(index)}">
