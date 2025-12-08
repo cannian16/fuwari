@@ -17,7 +17,7 @@ export const siteConfig: SiteConfig = {
 	},
 	banner: {
 		enable: true,
-		src: "https://vip.123pan.cn/1826899604/yk6baz03t0l000d7w33fs266q9y2xyozDIYvAqY2BIQOAcx1AdFy.jpg", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
+		src: "https://vip.123pan.cn/1826899604/ymjew503t0n000d7w32ygaepw75ac9qvDIYvAqY2BIQOAcx1AdFy.webp", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
 		position: "center", // Equivalent to object-position, only supports 'top', 'center', 'bottom'. 'center' by default
 		credit: {
 			enable: false, // Display the credit text of the banner image

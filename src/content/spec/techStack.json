@@ -125,6 +125,11 @@
 					"name": "LaTex",
 					"logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/LaTeX_logo.svg/1200px-LaTeX_logo.svg.png",
 					"url": "https://www.latex-project.org/" 
+				},
+				{
+					"name": "Typst",
+					"logo": "https://typst.app/assets/icons/icon-512.png",
+					"url": "https://typst.app/"
 				}
 			]
 		},
