@@ -1,0 +1,50 @@
+[
+  {
+    "imgUrl": "https://store-images.s-microsoft.com/image/apps.13971.13510798887629242.fde3f4b7-ddb2-475b-aabf-ff422a1a22df.86674486-8391-4455-ad54-d68010ac95a0?h=170",
+    "title": "EarTrumpet",
+    "url": "https://eartrumpet.app/",
+    "subtitle": "windows商店安装",
+    "content": "一款功能强大的 Windows 音量控制应用",
+    "size": "small"
+  },
+  {
+    "imgUrl": "https://store-images.s-microsoft.com/image/apps.3920.14405803611253731.a92873b0-37c2-4797-8970-49361565e95d.afe803be-45c5-4971-95f6-c6b98f4ce927?h=170",
+    "title": "QuickLook",
+    "url": "https://github.com/QL-Win/QuickLook",
+    "subtitle": "windows商店安装",
+    "content": "将 macOS 的“快速查看”功能带入 Windows 平台",
+    "size": "small"
+  },  
+  {
+    "imgUrl": "https://pixpin.cn/images/logo/1024.png",
+    "url": "https://pixpin.cn/",
+    "title": "PixPin",
+    "subtitle": "windows商店安装",
+    "content": "截图、录屏、OCR - 一款快速灵活的工具。",
+    "size": "small"
+  },
+  {
+      "imgUrl": "https://vip.123pan.cn/1826899604/yk6baz03t0l000d7w33fywiw4ridyz8wDIYvAqY2BIQOAcx1AdFy.png",
+      "title": "PowerToys",
+      "url": "https://github.com/microsoft/PowerToys",
+      "subtitle": "windows商店安装",
+      "content": "微软出品的一套 Windows 实用工具合集",
+      "size": "small"
+  },
+  {
+      "imgUrl": "https://img.chocolatey.org/logos/chocolatey.svg",
+      "title": "Chocolatey",
+      "url": "https://chocolatey.org/",
+      "subtitle": "windows包管理器",
+      "content": "很好用，很方便。",
+      "size": "small"
+  },
+  {
+      "imgUrl": "https://images.unsplash.com/photo-1579546929518-9e396f3cc809",
+      "title": "图吧工具箱",
+      "url": "https://www.tbtool.cn/",
+      "subtitle": "DIY工具集合",
+      "content": "一款开源、免费的硬件检测工具集合",
+      "size": "small"
+  }
+]
