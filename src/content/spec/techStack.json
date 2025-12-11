@@ -56,6 +56,11 @@
 					"name": "homebrew",
 					"logo": "https://brew.sh/assets/img/homebrew.svg",
 					"url": "https://brew.sh/"
+				},
+				{
+					"name": "certbot",
+					"logo": "https://certbot.eff.org/assets/certbot-logo-1A-6d3526936bd519275528105555f03904956c040da2be6ee981ef4777389a4cd2.svg",
+					"url": "https://certbot.eff.org/"
 				}
 			]
 		},
