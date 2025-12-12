@@ -1,11 +1,10 @@
-<!-- HorizontalCardScroller.svelte -->
 <script>
   import CardBentEdgeFixed from './CardComponent.svelte';
+  import { onMount, onDestroy } from 'svelte';
   
-  export let cards = []; // 卡片数据数组
-  export let gap = 6; // 卡片间距
-  export let showScrollbar = true; // 是否显示滚动条
-  export let snap = true; // 是否启用吸附滚动
+  export let cards = [];
+  export let gap = 6;
+  export let snap = true;
   
   let container;
   let isDragging = false;
@@ -13,13 +12,14 @@
   let scrollLeft;
   let velocity = 0;
   let animationFrame;
+  let currentFocusIndex = 0;
   
-  // 鼠标拖动功能
   const handleMouseDown = (e) => {
     isDragging = true;
     startX = e.pageX - container.offsetLeft;
     scrollLeft = container.scrollLeft;
     container.style.cursor = 'grabbing';
+    e.preventDefault();
   };
   
   const handleMouseMove = (e) => {
@@ -27,22 +27,17 @@
     e.preventDefault();
     
     const x = e.pageX - container.offsetLeft;
-    const walk = (x - startX) * 2; // 滚动速度因子
+    const walk = (x - startX) * 2;
     container.scrollLeft = scrollLeft - walk;
-    
-    // 计算速度用于惯性滚动
     velocity = (scrollLeft - container.scrollLeft) / 10;
   };
   
   const handleMouseUp = () => {
     isDragging = false;
-    container.style.cursor = 'grab';
-    
-    // 应用惯性滚动
+    container.style.cursor = '';
     applyInertia();
   };
   
-  // 惯性滚动
   const applyInertia = () => {
     if (Math.abs(velocity) < 0.1) {
       velocity = 0;
@@ -50,66 +45,172 @@
     }
     
     container.scrollLeft += velocity;
-    velocity *= 0.95; // 摩擦系数
-    
+    velocity *= 0.95;
     animationFrame = requestAnimationFrame(applyInertia);
   };
   
-  // 鼠标滚轮滚动
   const handleWheel = (e) => {
     e.preventDefault();
-    container.scrollLeft += e.deltaY * 0.5;
+    container.scrollLeft += e.deltaY * 1.5;
   };
   
-  // 清除动画帧
-  const cancelAnimation = () => {
-    if (animationFrame) {
-      cancelAnimationFrame(animationFrame);
+  const handleKeyDown = (e) => {
+    if (!container) return;
+    
+    const cardItems = container.querySelectorAll('.card-item');
+    const cardWidth = cardItems[0]?.offsetWidth || 300;
+    const gapPx = gap * 4;
+    const scrollAmount = cardWidth + gapPx;
+    
+    switch(e.key) {
+      case 'ArrowLeft':
+        e.preventDefault();
+        container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+        currentFocusIndex = Math.max(0, currentFocusIndex - 1);
+        focusCard(currentFocusIndex);
+        break;
+        
+      case 'ArrowRight':
+        e.preventDefault();
+        container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        currentFocusIndex = Math.min(cards.length - 1, currentFocusIndex + 1);
+        focusCard(currentFocusIndex);
+        break;
+        
+      case 'Home':
+        e.preventDefault();
+        container.scrollTo({ left: 0, behavior: 'smooth' });
+        currentFocusIndex = 0;
+        focusCard(currentFocusIndex);
+        break;
+        
+      case 'End':
+        e.preventDefault();
+        container.scrollTo({ left: container.scrollWidth, behavior: 'smooth' });
+        currentFocusIndex = cards.length - 1;
+        focusCard(currentFocusIndex);
+        break;
+        
+      case 'Enter':
+      case ' ':
+        if (document.activeElement === container) {
+          e.preventDefault();
+          focusCard(currentFocusIndex);
+        }
+        break;
     }
   };
   
-  // 滚动到特定卡片
+  const focusCard = (index) => {
+    const cardItems = container.querySelectorAll('.card-item');
+    if (cardItems[index]) {
+      const cardLink = cardItems[index].querySelector('a');
+      if (cardLink) {
+        cardLink.focus();
+      } else {
+        cardItems[index].setAttribute('tabindex', '-1');
+        cardItems[index].focus();
+      }
+    }
+  };
+  
+  const handleCardClick = () => {
+    if (container) {
+      container.focus();
+    }
+  };
+  
   const scrollToCard = (index) => {
     if (!container || index < 0 || index >= cards.length) return;
     
-    const cardWidth = container.querySelector('.card-item')?.offsetWidth || 300;
-    const gapPx = gap * 4; // Tailwind gap转换为px
+    const cardItems = container.querySelectorAll('.card-item');
+    const cardWidth = cardItems[0]?.offsetWidth || 300;
+    const gapPx = gap * 4;
     const targetScroll = index * (cardWidth + gapPx);
     
     container.scrollTo({
       left: targetScroll,
       behavior: 'smooth'
     });
+    
+    currentFocusIndex = index;
+    focusCard(index);
   };
   
-  // 组件卸载时清理
-  import { onDestroy } from 'svelte';
-  onDestroy(cancelAnimation);
+  const cancelAnimation = () => {
+    if (animationFrame) {
+      cancelAnimationFrame(animationFrame);
+    }
+  };
+  
+  const getActiveCardIndex = () => {
+    if (!container) return 0;
+    
+    const cardItems = container.querySelectorAll('.card-item');
+    if (cardItems.length === 0) return 0;
+    
+    const cardWidth = cardItems[0].offsetWidth;
+    const gapPx = gap * 4;
+    const itemWidth = cardWidth + gapPx;
+    
+    return Math.round(container.scrollLeft / itemWidth);
+  };
+  
+  const handleScroll = () => {
+    currentFocusIndex = getActiveCardIndex();
+  };
+  
+  onMount(() => {
+    if (container) {
+      container.addEventListener('scroll', handleScroll);
+      
+      container.style.overflowX = 'auto';
+      container.style.scrollBehavior = 'smooth';
+      
+      setTimeout(() => {
+        if (container) {
+          container.focus();
+          container.dispatchEvent(new Event('scroll'));
+        }
+      }, 100);
+    }
+  });
+  
+  onDestroy(() => {
+    cancelAnimation();
+    if (container) {
+      container.removeEventListener('scroll', handleScroll);
+    }
+  });
 </script>
 
 <div class="relative group top-4">
-  <!-- 滚动容器 -->
-  <div
+  <section
     bind:this={container}
-    class="flex overflow-x-auto scroll-smooth"
+    class="flex overflow-x-auto scroll-smooth outline-none"
     class:cursor-grab={!isDragging}
     class:cursor-grabbing={isDragging}
     class:snap-x={snap}
     class:snap-mandatory={snap}
-    class:scrollbar-thin={showScrollbar}
-    class:scrollbar-thumb-gray-300={showScrollbar}
-    class:scrollbar-track-transparent={showScrollbar}
     style="gap: {gap * 0.25}rem;"
     on:mousedown={handleMouseDown}
     on:mousemove={handleMouseMove}
     on:mouseup={handleMouseUp}
     on:mouseleave={handleMouseUp}
     on:wheel={handleWheel}
+    on:keydown={handleKeyDown}
     role="region"
+    tabindex="0"
     aria-label="可水平滚动的卡片列表"
   >
     {#each cards as card, index}
-      <div class="flex-shrink-0 card-item" style="scroll-snap-align: {snap ? 'start' : 'none'};">
+      <article 
+        class="flex-shrink-0 card-item" 
+        style="scroll-snap-align: {snap ? 'start' : 'none'};"
+        on:click={handleCardClick}
+        tabindex="-1"
+        aria-label={`卡片 ${index + 1}: ${card.title}`}
+      >
         <CardBentEdgeFixed
           imgUrl={card.imgUrl}
           title={card.title}
@@ -118,77 +219,39 @@
           content={card.content}
           size={card.size || 'medium'}
         />
-      </div>
+      </article>
     {/each}
+  </section>
+
+  <div class="sr-only">
+    使用滚轮、方向键或鼠标拖动进行水平滚动
   </div>
-  
-  <!-- 导航按钮（大屏幕显示） -->
-  <button
-    class="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 w-10 h-10 bg-white/90 backdrop-blur-sm rounded-full shadow-lg items-center justify-center hover:bg-white transition-all opacity-0 group-hover:opacity-100 z-10"
-    on:click={() => container.scrollBy({ left: -400, behavior: 'smooth' })}
-    aria-label="向左滚动"
-  >
-    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-    </svg>
-  </button>
-  
-  <button
-    class="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 w-10 h-10 bg-white/90 backdrop-blur-sm rounded-full shadow-lg items-center justify-center hover:bg-white transition-all opacity-0 group-hover:opacity-100 z-10"
-    on:click={() => container.scrollBy({ left: 400, behavior: 'smooth' })}
-    aria-label="向右滚动"
-  >
-    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-    </svg>
-  </button>
-  
-  <!-- 滚动指示器 -->
-  {#if cards.length > 1}
-    <div class="flex justify-center gap-2 mt-4">
-      {#each cards as _, index}
-        <button
-          class="w-2 h-2 rounded-full transition-all duration-300 bg-gray-300 hover:bg-gray-400"
-          class:bg-blue-500={Math.abs(container?.scrollLeft / (container?.scrollWidth - container?.clientWidth) * cards.length - index) < 0.5}
-          class:w-4={Math.abs(container?.scrollLeft / (container?.scrollWidth - container?.clientWidth) * cards.length - index) < 0.5}
-          on:click={() => scrollToCard(index)}
-          aria-label={`跳转到第 ${index + 1} 个卡片`}
-        />
-      {/each}
-    </div>
-  {/if}
+
 </div>
 
 <style>
-  /* 自定义滚动条样式 */
-  .scrollbar-thin {
-    scrollbar-width: thin;
+  section[role="region"] {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+    
+    /* 隐藏滚动条 */
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;     /* Firefox */
   }
   
-  .scrollbar-thin::-webkit-scrollbar {
-    height: 6px;
+  section[role="region"]::-webkit-scrollbar {
+    display: none;  /* Chrome, Safari and Opera */
   }
   
-  .scrollbar-thin::-webkit-scrollbar-track {
-    background: transparent;
-  }
-  
-  .scrollbar-thin::-webkit-scrollbar-thumb {
-    background-color: rgba(209, 213, 219, 0.5);
-    border-radius: 3px;
-  }
-  
-  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
-    background-color: rgba(156, 163, 175, 0.7);
-  }
-  
-  /* 隐藏滚动条但保持可滚动 */
-  .scrollbar-none {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
-  
-  .scrollbar-none::-webkit-scrollbar {
-    display: none;
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
   }
 </style>

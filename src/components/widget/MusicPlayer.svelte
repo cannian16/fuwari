@@ -12,7 +12,6 @@
     songs = playlistData.songs || [];
     if (songs.length > 0) {
       audioElement.src = songs[currentSongIndex].url;
-      audioElement.volume = 0.3;
     }
   });
   

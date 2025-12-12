@@ -8,7 +8,7 @@
     "size": "small"
   },
   {
-    "imgUrl": "https://store-images.s-microsoft.com/image/apps.3920.14405803611253731.a92873b0-37c2-4797-8970-49361565e95d.afe803be-45c5-4971-95f6-c6b98f4ce927?h=170",
+    "imgUrl": "https://vip.123pan.cn/1826899604/ymjew503t0n000d7w32ygjb25xl5rjotDIYvAqY2BIQOAcx1AdFy.png",
     "title": "QuickLook",
     "url": "https://github.com/QL-Win/QuickLook",
     "subtitle": "windows商店安装",
@@ -16,7 +16,7 @@
     "size": "small"
   },  
   {
-    "imgUrl": "https://pixpin.cn/images/logo/1024.png",
+    "imgUrl": "https://vip.123pan.cn/1826899604/ymjew503t0n000d7w32ygjskclm1bjprDIYvAqY2BIQOAcx1AdFy.webp",
     "url": "https://pixpin.cn/",
     "title": "PixPin",
     "subtitle": "windows商店安装",
@@ -24,7 +24,7 @@
     "size": "small"
   },
   {
-      "imgUrl": "https://vip.123pan.cn/1826899604/yk6baz03t0l000d7w33fywiw4ridyz8wDIYvAqY2BIQOAcx1AdFy.png",
+      "imgUrl": "https://vip.123pan.cn/1826899604/ymjew503t0l000d7w32xkr8jz4qt9g8sDIYvAqY2BIQOAcx1AdFy.png",
       "title": "PowerToys",
       "url": "https://github.com/microsoft/PowerToys",
       "subtitle": "windows商店安装",
@@ -45,6 +45,62 @@
       "url": "https://www.tbtool.cn/",
       "subtitle": "DIY工具集合",
       "content": "一款开源、免费的硬件检测工具集合",
+      "size": "small"
+  },
+  {
+      "imgUrl": "https://vip.123pan.cn/1826899604/yk6baz03t0l000d7w33fz6oz2tsot65oDIYvAqY2BIQOAcx1AdFy.webp",
+      "title": "MAS",
+      "url": "https://massgrave.dev/",
+      "subtitle": "windows激活脚本",
+      "content": "开源的 Windows 和 Office 激活器。",
+      "size": "small"
+  },
+  {
+      "imgUrl": "https://www.netmount.cn/_next/static/media/color.e0ec2e9a.svg",
+      "title": "NetMount",
+      "url": "https://www.netmount.cn/",
+      "subtitle": "将网络位置挂载为本地位置",
+      "content": "统一管理和挂载云存储设施，alist＋rclone",
+      "size": "small"
+  },
+  {
+      "imgUrl": "https://avatars.githubusercontent.com/u/63755826?s=48&v=4",
+      "title": "Sandboxie Plus",
+      "url": "https://sandboxie-plus.com/",
+      "subtitle": "windows沙盒软件",
+      "content": "一种基于沙盒的隔离软件，适用于 Windows NT 操作系统。",
+      "size": "small"
+  },
+  {
+      "imgUrl": "https://vip.123pan.cn/1826899604/ymjew503t0l000d7w32xkrhb4mrb0ey1DIYvAqY2BIQOAcx1AdFy.png",
+      "title": "Music Tag",
+      "url": "https://www.cnblogs.com/vinlxc/p/11347744.html",
+      "subtitle": "修改音乐元数据",
+      "content": "一款可以编辑歌曲的标题，专辑，艺术家，歌词，封面等信息的应用程序。",
+      "size": "small"
+  },
+  {
+      "imgUrl": "https://images.unsplash.com/photo-1764513168327-309c566fbc36?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "title": "Resource Hacker",
+      "url": "https://www.angusj.com/resourcehacker/",
+      "subtitle": "查看可执行文件中的资源",
+      "content": "一款为 Windows®应用程序提供的免费资源编译器和反编译器",
+      "size": "small"
+  },
+  {
+      "imgUrl": "https://vip.123pan.cn/1826899604/ymjew503t0l000d7w32xkri8mdrcviheDIYvAqY2BIQOAcx1AdFy.png",
+      "title": "Windows 11 轻松设置",
+      "url": "https://bbs.pcbeta.com/viewthread-1972024-1-2.html",
+      "subtitle": "快速设置 Windows 11",
+      "content": "一键设置 Windows 11 系统的实用工具",
+      "size": "small"
+  },
+  {
+      "imgUrl": "https://vip.123pan.cn/1826899604/yk6baz03t0l000d7w33fz6tahwstoq11DIYvAqY2BIQOAcx1AdFy.png",
+      "title": "ContextMenuManager",
+      "url": "https://github.com/BluePointLilac/ContextMenuManager",
+      "subtitle": "右键菜单管理",
+      "content": "🖱️ 一个纯粹的Windows右键菜单管理程序",
       "size": "small"
   }
 ]
