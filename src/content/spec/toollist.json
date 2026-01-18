@@ -102,5 +102,29 @@
       "subtitle": "右键菜单管理",
       "content": "🖱️ 一个纯粹的Windows右键菜单管理程序",
       "size": "small"
+  },
+  {
+      "imgUrl": "https://www.openssl-library.org/images/openssl_logo_library.svg",
+      "title": "OpenSSL",
+      "url": "https://www.openssl.org/",
+      "subtitle": "开源加密库",
+      "content": "不止创建公钥私钥，还有各种sha256，md5等哈希值生成。啥都有很全能。",
+      "size": "small"
+  },
+  {
+      "imgUrl": "https://stranslate.zggsong.com/logo/logo.svg",
+      "title": "STranslate",
+      "url": "https://github.com/STranslate/STranslate",
+      "subtitle": "桌面翻译,ocr",
+      "content": "一款即用即走的翻译、OCR工具「插件系统」",
+      "size": "small"
+  },
+  {
+        "imgUrl":"https://bitwarden.com/favicon.png",
+        "title": "bitwarden",
+        "url": "https://bitwarden.com/",
+        "subtitle": "密码管理器",
+        "content": "开源免费跨平台密码管理器",
+        "size": "small"
   }
 ]
