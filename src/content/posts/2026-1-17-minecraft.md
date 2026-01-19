@@ -40,11 +40,14 @@ services:
 ```bash
 docker compose exec mc rcon-cli "say 111"
 ```
+还可以用也是同一个作者的rcon-cli项目，发送tcp请求连接服务器
+::github{repo="itzg/rcon-cli"}
+当然还有其他的rcon客户端
+::github{repo="Tiiffi/mcrcon"}
 为了方便管理可以使用python脚本来简化控制。
+
 # 避雷
 forge的服务端rcon有bug，发送`say、tellraw`这种命令返回的不是json类型的对象，而是布尔值True，bash会卡死，所以使用脚本的时候一定要有超时中断，可以捏着鼻子用。
-
-
 
 # 管理模组
 | 库名  | 描述 |
