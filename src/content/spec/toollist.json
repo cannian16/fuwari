@@ -127,4 +127,12 @@
         "content": "开源免费跨平台密码管理器",
         "size": "small"
   }
+    {
+        "imgUrl":"https://antibodysoftware-17031.kxcdn.com/images/wiztree445x.png",
+        "title": "WizTree",
+        "url": "https://diskanalyzer.com/",
+        "subtitle": "磁盘分析工具",
+        "content": "一款快速的磁盘分析和清理工具",
+        "size": "small"
+  }
 ]

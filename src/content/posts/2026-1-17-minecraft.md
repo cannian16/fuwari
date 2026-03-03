@@ -34,7 +34,7 @@ services:
     volumes:
       - "./data:/data"
 ```
-# 管理
+# rcon
 用这个项目部署的服务器，自带了rcon-cli，在容器内配置了环境变量和rcon密钥，
 交互可以直接使用docker内的rcon-cli
 ```bash
@@ -49,7 +49,13 @@ docker compose exec mc rcon-cli "say 111"
 # 避雷
 forge的服务端rcon有bug，发送`say、tellraw`这种命令返回的不是json类型的对象，而是布尔值True，bash会卡死，所以使用脚本的时候一定要有超时中断，可以捏着鼻子用。
 
-# 管理模组
+# 服务器管理
+## [白名单](https://zh.minecraft.wiki/w/%E5%91%BD%E4%BB%A4/whitelist?variant=zh-cn)
+离线服务器，白名单使用uuid。
+wiki上可以查看[uuid](https://zh.minecraft.wiki/w/%E9%80%9A%E7%94%A8%E5%94%AF%E4%B8%80%E8%AF%86%E5%88%AB%E7%A0%81?variant=zh-cn)
+## 管理模组
 | 库名  | 描述 |
 |------ |------|
 | [easyauth](https://modrinth.com/mod/easyauth) |为离线/在线服务器安装认证模组 |
+
+

@@ -67,6 +67,11 @@
 					"logo": "https://avatars.githubusercontent.com/u/60454762?s=48&v=4",
 					"url": "https://github.com/acmesh-official/acme.sh"
 				}
+				{
+					"name": "pnpm",
+					"logo": "https://pnpm.io/zh/img/pnpm-no-name-with-frame.svg",
+					"url": "https://pnpm.io/zh/"
+				}
 			]
 		},
 		"secondline": {
