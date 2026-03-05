@@ -2,9 +2,7 @@
 <script>
 import axios from "axios";
 import { onMount } from "svelte";
-
-// API 基础 URL - 根据你的实际部署情况修改
-const API_BASE = "https://api.cannian.space/messages";
+import { API_BASE } from '../config';
 
 // 创建 axios 实例
 const api = axios.create({
