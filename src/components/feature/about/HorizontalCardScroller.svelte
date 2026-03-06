@@ -1,8 +1,9 @@
 <script>
   import CardBentEdgeFixed from './CardComponent.svelte';
   import { onMount, onDestroy } from 'svelte';
+  import api from '@lib/api';
   
-  export let cards = [];
+  let cards = [];
   export let gap = 6;
   export let snap = true;
   
@@ -13,6 +14,15 @@
   let velocity = 0;
   let animationFrame;
   let currentFocusIndex = 0;
+
+  async function fetchCards() {
+    try {
+      const response = await api.get('tools/get');
+      cards = response.data;
+    } catch (error) {
+      console.error('获取工具列表失败:', error);
+    }
+  }
   
   const handleMouseDown = (e) => {
     isDragging = true;
@@ -174,6 +184,7 @@
         }
       }, 100);
     }
+    fetchCards();
   });
   
   onDestroy(() => {
@@ -217,15 +228,10 @@
           url={card.url}
           subtitle={card.subtitle}
           content={card.content}
-          size={card.size || 'medium'}
         />
       </article>
     {/each}
   </section>
-
-  <div class="sr-only">
-    使用滚轮、方向键或鼠标拖动进行水平滚动
-  </div>
 
 </div>
 
@@ -241,17 +247,5 @@
   
   section[role="region"]::-webkit-scrollbar {
     display: none;  /* Chrome, Safari and Opera */
-  }
-  
-  .sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border: 0;
   }
 </style>

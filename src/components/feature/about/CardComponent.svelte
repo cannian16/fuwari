@@ -4,44 +4,19 @@
   export let subtitle = '';
   export let content = '';
   export let url = '';
-  export let size = 'small';
   
   // 使用可靠的方案
   let isHovered = false;
   
-  // 像素值配置
-  const sizePx = {
-    small: {
-      width: 256,
-      height: 256,
-      expanded: 340, // 使用 384 而不是 380
-      image: 240
-    },
-    medium: {
-      width: 288,
-      height: 288,
-      expanded: 420,
-      image: 256
-    },
-    large: {
-      width: 320,
-      height: 320,
-      expanded: 460,
-      image: 288
-    }
-  };
-  
-  $: config = sizePx[size] || sizePx.small;
-  
   // 动态样式
   $: containerStyle = `
-    width: ${config.width}px;
-    height: ${isHovered ? config.expanded : config.height}px;
+    width: 256px;
+    height: ${isHovered ? 340 : 256}px;
     transition: height 0.5s ease-out;
   `;
   
   $: imageStyle = `
-    height: ${config.image}px;
+    height: 240px;
     background-image: url('${imgUrl}');
     filter: ${isHovered ? 'blur(0)' : 'blur(25px)'};
     background-size: ${isHovered ? '110%' : '100%'};
