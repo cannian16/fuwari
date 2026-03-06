@@ -1,17 +1,47 @@
 <script>
-  import techStackData from '../content/spec/techStack.json';
+  import { onMount } from 'svelte';
+  import api from '@lib/api';
   
-  export let speed = 35;
+  let speed = 35;
   let isPaused = false;
-  
-  // 直接处理数据，不需要 isMounted
-  $: rows = techStackData.displayOrder.map(categoryKey => {
-    const category = techStackData.categories[categoryKey];
-    return {
-      name: category.name,
-      items: [...category.items, ...category.items]
-    };
+  const rowCount = 3;
+  let Skills = [];
+  let rows = [];
+
+  async function fetchSkills() {
+    try {
+      const response = await api.get('skills/get');
+      Skills = response.data;
+    } catch (err) {
+      console.error('获取技术栈数据失败:', err);
+    }
+  }
+  onMount(() => {
+    fetchSkills();
   });
+
+  $: {
+      // 1. 初始化空数组
+      let tempRows = [];
+      // 2. 计算每行要放几个 (math.ceil 就是 Python 的 math.ceil)
+      const itemsPerRow = Math.ceil(Skills.length / rowCount);
+      
+      // 3. 传统循环
+      for (let i = 0; i < rowCount; i++) {
+          const start = i * itemsPerRow;
+          const end = start + itemsPerRow;
+          
+          // 切片 (Python 的切片是 items[start:end])
+          let chunk = Skills.slice(start, end);
+          
+          // 4. 重复一遍 (相当于 Python 的 chunk + chunk)
+          let doubledChunk = [...chunk, ...chunk];
+          
+          // 5. 存入结果
+          tempRows.push(doubledChunk);
+      }
+      rows = tempRows;
+  }
 </script>
 
 <div class="w-full bg-gray-50 dark:bg-gray-900 rounded-xl p-4 space-y-4">
@@ -28,7 +58,7 @@
         on:mouseenter={() => isPaused = true}
         on:mouseleave={() => isPaused = false}
       >
-        {#each row.items as item}
+        {#each row as item}
           <a
             href={item.url}
             target="_blank"

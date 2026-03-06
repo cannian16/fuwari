@@ -1,15 +1,26 @@
 <script>
   import { onMount } from 'svelte';
-  import playlistData from '../../content/spec/playlist.json';
+  import api from '@lib/api';
   
   let isPlaying = false;
   let audioElement;
   let currentSongIndex = 0;
   let songs = [];
   
+  async function fetchSongs() {
+    try {
+      const response = await api.get('songs/get');
+      songs = response.data;
+      if (songs.length > 0) {
+        audioElement.src = songs[currentSongIndex].url;
+      }
+    } catch (err) {
+      console.error('获取歌单失败:', err);
+    }
+  }
   // 初始化歌单
   onMount(() => {
-    songs = playlistData || [];
+    fetchSongs();
     if (songs.length > 0) {
       audioElement.src = songs[currentSongIndex].url;
     }
