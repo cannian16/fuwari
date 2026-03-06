@@ -1,14 +1,7 @@
 <!-- MessageBoard.svelte -->
 <script>
-import axios from "axios";
 import { onMount } from "svelte";
-import { API_BASE } from '../config';
-
-// 创建 axios 实例
-const api = axios.create({
-	baseURL: API_BASE,
-	timeout: 10000,
-});
+import api from "@lib/api";
 
 // 状态变量
 let messages = [];
@@ -31,9 +24,6 @@ let formData = {
 	email: "",
 };
 
-// 查询条件
-let searchUsername = "";
-
 // 获取留言列表
 async function fetchMessages(page = 1) {
 	loading = true;
@@ -45,7 +35,7 @@ async function fetchMessages(page = 1) {
 			limit: pagination.limit,
 		};
 
-		const response = await api.get("/get", { params });
+		const response = await api.get("messages/get", { params });
 
 		messages = response.data.messages;
 		pagination = response.data.pagination;
@@ -55,7 +45,7 @@ async function fetchMessages(page = 1) {
 		} else if (err.request) {
 			error = "网络错误，无法连接到服务器";
 		} else {
-			error = `请求错误: ${err.message}`;
+			error = `请求发出失败: ${err.message}`;
 		}
 		console.error("获取留言列表失败:", err);
 	} finally {
@@ -70,7 +60,7 @@ async function submitMessage() {
 	success = "";
 
 	try {
-		const response = await api.post("/add", formData);
+		const response = await api.post("messages/add", formData);
 
 		// 清空表单
 		formData = {

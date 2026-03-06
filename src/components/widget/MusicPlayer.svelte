@@ -9,7 +9,7 @@
   
   // 初始化歌单
   onMount(() => {
-    songs = playlistData.songs || [];
+    songs = playlistData || [];
     if (songs.length > 0) {
       audioElement.src = songs[currentSongIndex].url;
     }

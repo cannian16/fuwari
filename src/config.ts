@@ -46,7 +46,7 @@ export const navBarConfig: NavBarConfig = {
 		LinkPreset.About,
 		{
 			name: "友链",
-			url: "/friends/", // Internal links should not include the base path, as it is automatically added
+			url: "/links/", // Internal links should not include the base path, as it is automatically added
 			external: false, // Show an external link icon and will open in a new tab
 		},
 		{
@@ -64,7 +64,7 @@ export const profileConfig: ProfileConfig = {
 	bio: "正在学习...",
 	links: [
 		{
-			name: "Twitter",
+			name: "Bilibili",
 			icon: "fa6-brands:bilibili", // Visit https://icones.js.org/ for icon codes
 			// You will need to install the corresponding icon set if it's not already included
 			// `pnpm add @iconify-json/<icon-set-name>`
@@ -100,4 +100,4 @@ export const expressiveCodeConfig: ExpressiveCodeConfig = {
 	theme: "github-dark",
 };
 
-export const API_BASE = "https://api.cannian.space/messages";
+export const API_BASE = "http://127.0.0.1:5000";
