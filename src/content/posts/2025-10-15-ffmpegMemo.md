@@ -4,8 +4,8 @@ published: 2025-10-15
 description: '记录一下ffmpeg的命令，需要的时候直接在这复制'
 image: ''
 tags: [ffmpeg]
-category: '备忘'
-draft: true 
+category: '数据处理'
+draft: false 
 lang: ''
 ---
 

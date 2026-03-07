@@ -4,7 +4,7 @@ published: 2026-01-17
 description: '也维护了这么久服务器了，踩的坑也不少'
 image: ''
 tags: []
-category: '部署'
+category: '业务应用'
 draft: false
 lang: ''
 ---

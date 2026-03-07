@@ -4,7 +4,7 @@ published: 2025-11-14
 description: '哇，这家伙真折腾的我不轻，部署感觉比编码恶心多了，说实话'
 image: ''
 tags: []
-category: '开发'
+category: '工程实践'
 draft: false
 lang: ''
 ---

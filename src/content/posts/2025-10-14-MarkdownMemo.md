@@ -4,7 +4,7 @@ published: 2025-10-14
 description: '记录一下markdown语法，不然很快又忘了'
 image: ''
 tags: [markdwon]
-category: '备忘'
+category: '工程工具'
 draft: false 
 lang: ''
 ---
