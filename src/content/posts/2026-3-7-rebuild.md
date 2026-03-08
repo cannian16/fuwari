@@ -1,9 +1,9 @@
 ---
 title: 博客后端重构完成
-published: 2026-03-7
+published: 2026-03-07
 description: '花了几天把项目结构规范化了，记录一下吧'
 image: ''
-tags: ['python']
+tags: []
 category: '工程实践'
 draft: false
 lang: ''

@@ -3,7 +3,7 @@ title: 我的世界服务器部署
 published: 2026-01-17
 description: '也维护了这么久服务器了，踩的坑也不少'
 image: ''
-tags: []
+tags: [minecraft]
 category: '业务应用'
 draft: false
 lang: ''
