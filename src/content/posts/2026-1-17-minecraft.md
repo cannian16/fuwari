@@ -50,12 +50,33 @@ docker compose exec mc rcon-cli "say 111"
 forge的服务端rcon有bug，发送`say、tellraw`这种命令返回的不是json类型的对象，而是布尔值True，bash会卡死，所以使用脚本的时候一定要有超时中断，可以捏着鼻子用。
 
 # 服务器管理
-## [白名单](https://zh.minecraft.wiki/w/%E5%91%BD%E4%BB%A4/whitelist?variant=zh-cn)
+## [白名单](https://zh.minecraft.wiki/w/%E5%91%BD%E4%BB%A4/whitelist?variant=zh-cn)管理
 离线服务器，白名单使用uuid。
 wiki上可以查看[uuid](https://zh.minecraft.wiki/w/%E9%80%9A%E7%94%A8%E5%94%AF%E4%B8%80%E8%AF%86%E5%88%AB%E7%A0%81?variant=zh-cn)
+```bash
+whitelist add <玩家名>
+#重载白名单
+whitelist reload
+```
+## TPS
+| 数据指标 | 正常范围 | 含义 |
+| --- | --- | --- |
+| **TPS** | **20.0** | 理想状态。如果低于 20，玩家会感觉到瞬移、方块回退。 |
+| **MSPT** | **< 50ms** | 每刻耗时。只要低于 50ms，TPS 就能维持在 20。 |
+| **MSPT** | **> 50ms** | 服务器开始“赶工”，TPS 随之下降。 |
+## 清除凋落物
+如果某个区块的掉落物实体过多，比如刷沙机。
+```bash
+#强制加载末地的主导区块
+rcon-cli execute in minecraft:the_end run forceload add 128 0
+#清除凋落物
+rcon-cli execute in minecraft:the_end run kill @e[type=item]
+#移除强制加载
+rcon-cli execute in minecraft:the_end run forceload remove 128 0
+```
+如果连服务器都进不去了，直接删除对应区块的实体文件也行。
 ## 管理模组
 | 库名  | 描述 |
 |------ |------|
-| [easyauth](https://modrinth.com/mod/easyauth) |为离线/在线服务器安装认证模组 |
-
-
+| [easyauth](https://modrinth.com/mod/easyauth) | 为离线/在线服务器安装认证模组 |
+| [spark](https://modrinth.com/mod/spark) | 一款面向 Minecraft 客户端、服务器和代理的性能分析工具。 |
