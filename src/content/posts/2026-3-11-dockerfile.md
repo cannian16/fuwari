@@ -1,0 +1,166 @@
+---
+title: Dockerfile
+published: 2026-03-11
+description: '深度使用了一次Dockerfile'
+image: ''
+tags: ['linux','docker']
+category: '运维和基础设施'
+draft: false
+lang: ''
+---
+[官方文档](https://docs.docker.com/)
+[dockerhub](https://hub.docker.com/),我们写dockerfile的时候需要指定某个基础镜像，可以去这里面找，存着所有的镜像。
+比如我要一个[python镜像](https://hub.docker.com/_/python),你可以在tag那边筛选要什么版本的，不仅仅是python版本，还有silm，轻量版，bookstorm，debain版本之类的，很多任君挑选。
+# docker pull 代理
+我们docker pull的第一个问题就是官方源pull不下来，
+需要在`/etc/systemd/system/docker.service.d`目录下配置，这个是systemctl的标准，和bashrc配置的http_proxy不同，和git的http_proxy配置也不同。他这里配置的话，这台机子的所有用户的docker都会生效
+我们`sudo mkdir /etc/systemd/system/docker.service.d`,在这个目录下`编辑http-proxy.conf`，配置名字随便取，有很多可以配置的模块化起名方便管理。配置里写
+```text
+[Service]
+#千万是本机ip，而不是127.0.0.1
+Environment="HTTP_PROXY=http://<本机ip>:7890" 
+Environment="HTTPS_PROXY=http://<本机ip>:7890"
+```
+然后就像前面systemctl的[文章](https://blog.cannian.space/posts/2025-12-12-linux/#systemd-%E6%9C%8D%E5%8A%A1%E7%AE%A1%E7%90%86)说的一样
+```bash
+#重新加载一次配置
+sudo systemctl daemon-reload
+#重启docker
+sudo systemctl restart docker
+```
+这样就行了,这个docker守护进程是个很奇怪的东西他和普通容器不同，正常来说普通容器里，宿主机ip是172.x.x.x的。普通进程宿主机可以是127.0.0.1。docker本身是个量子叠加态，真的很奇葩。
+
+# dockerfile
+也是仔细用了一docker build方面的，我觉得所有的服务都要用docker来统一部署可能是最优解，干干净净，利利索索，nginx，frp，wireguard这种也得用docker部署。vim，tmux这种工具直接在本地安装。redis，数据库也都用docker，实在是干净了，docker的网络分组也能很好的把内外网服务分开了，很舒服，不要再用systemctl部署了！
+```docker-compose.yml
+# 使用轻量级 Python 镜像，保持镜像体积在 200MB 以内
+FROM python:3.14-slim AS builder
+
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
+
+WORKDIR /app
+
+COPY pyproject.toml uv.lock ./
+
+RUN uv sync --frozen --no-dev --no-editable
+
+FROM python:3.14-slim
+
+WORKDIR /app
+
+# 从构建阶段直接复制虚拟环境
+COPY --from=builder /app/.venv /app/.venv
+
+COPY . .
+
+ENV PATH="/app/.venv/bin:$PATH"
+
+EXPOSE 5000
+
+CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:5000", "app:create_app()"]、
+```
+这个dockerfile分为了build阶段和最终镜像，相当与是uv只在build阶段安装，用它sync一下，然后就扔了，之后把他下载的依赖复制一份到最终镜像。
+真灵活啊，这么部署之后试试弄ci\cd。这样部署就不需要用dotenv了，直接用docker compose的环境变量就行了，太方便了有点。
+
+# docker网络
+就像之前说的，这里面的水挺深的，不过整体上就和普通的网络管理其实区别不大，每个容器都有一个自己的ip，可以划分网络段，就有点像vlan一样的，但是他没法两个网络之间直接通信，必须要中间有一个容器横跨两个网络段才能实现通信。
+## 多容器共享网络
+接下来有3个compose，可以看看里面的网络配置。
+```yml
+#~/frpc/docker-compose.yml
+services:
+  frpc:
+    image: snowdreamtech/frpc:latest
+    container_name: frpc
+    restart: always
+    volumes:
+      - ./frpc.toml:/etc/frp/frpc.toml
+    environment:
+      TZ: "Asia/Shanghai"
+    networks:
+      - internal_proxy
+
+networks:
+  internal_proxy:
+    name: internal_proxy
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
+          gateway: 172.20.0.1
+```
+这个compose的和service平级的networks里创建了一个网络空间，这个空间内部是桥接模式，也是就说所有的子ip都被连到了一个虚拟交换机上，ipam配置了这个网络的ip段和网关。然后把这个网络创建完了，frp这个服务本身就通过networks连接到了这个网络里
+```yml
+services:
+  mc:
+    image: itzg/minecraft-server:latest
+    container_name: bzl_mc
+    tty: true
+    stdin_open: true
+    environment:
+      EULA: "TRUE"
+      TYPE: "FABRIC"
+      VERSION: "1.21.11"
+      MEMORY: "4G"
+      MOTD: "1.21.11fabric"
+      ICON: "https://vip.123pan.cn/1826899604/yk6baz03t0m000d7w33girwfizdpc39iDIYvA\
+        qY2BIQOAcx1AdFy.jpg"
+      TZ: "Asia/Shanghai"
+      USE_AIKAR_FLAGS: "true"  
+    volumes:
+      - "./server0/data:/data"
+    networks:
+      - internal_proxy
+networks:
+  internal_proxy:
+    external: true
+```
+```yml
+services:
+  flask_backend:
+    image: flask_backend:latest
+    container_name: flask_backend
+    environment:
+      ADMIN_TOKEN: "123"
+      SECRET_KEY: "123"
+      TZ: "Asia/Shanghai"
+      ALLOWED_ORIGINS: "https://blog.cannian.space"
+    volumes:
+      - ./instance:/app/instance
+    networks:
+      - internal_proxy
+networks:
+  internal_proxy:
+    external: true
+```
+这俩的网络区域相同，在最外层先导入这个internal_proxy网络，然后再让服务容器加入进去。
+
+## 网络空间
+就像正常的网络运维一样，docker创建的网络都会在宿主系统的路由表里，可以通过标准的网络命令查看。
+```bash
+ip route 或 ip r #路由表
+ip address 或 ip a #查各个网口和ip
+```
+ip r输出
+```text
+default via 192.168.5.1 dev enp3s0-ovs proto static metric 100 
+default via 192.168.5.1 dev enp2s0 proto static metric 100 
+#wireguard的
+10.0.1.0/24 dev wg1 proto kernel scope link src 10.0.1.2 
+#一下全是docker默认创建的网络如果不想要一个网段就这么大，想要节约一点，可以重新配置默认划分的掩码大小和起始ip，想要啥网络都行，非常自由
+172.17.0.0/16 dev docker0 proto kernel scope link src 172.17.0.1 linkdown 
+172.18.0.0/16 dev br-e44bdcff0958 proto kernel scope link src 172.18.0.1 
+172.19.0.0/16 dev br-79ac615d56d3 proto kernel scope link src 172.19.0.1 linkdown 
+172.20.0.0/16 dev br-b8b6045462a2 proto kernel scope link src 172.20.0.1 
+172.21.0.0/16 dev br-7a3d779c8cac proto kernel scope link src 172.21.0.1 
+172.22.0.0/16 dev br-ab77746f4f5a proto kernel scope link src 172.22.0.1 
+172.23.0.0/16 dev br-9af17c1c9f92 proto kernel scope link src 172.23.0.1 linkdown 
+172.24.0.0/16 dev br-d5b0b5f07671 proto kernel scope link src 172.24.0.1 
+192.168.5.0/24 dev enp3s0-ovs proto kernel scope link src 192.168.5.2 metric 100 
+192.168.5.0/24 dev enp2s0 proto kernel scope link src 192.168.5.3 metric 100 
+```
+
+# docker compose
+这个用了很久语法上还是有点乱，多注意一下。环境变量不要再用list了，直接写对象用map是比较现代的。
+服务名和容器名也是非常乱七八糟的，默认没有填写容器名的话还可能与compose所在的路径有关，所以还是手动填写容器名吧，省的想太多
+除了前端基本上，全部docker部署了，以后尽量完成CI/CD
