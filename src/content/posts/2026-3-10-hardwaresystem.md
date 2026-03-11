@@ -1,6 +1,6 @@
 ---
 title: 小规模私有云架构
-published: 2026-3-10
+published: 2026-03-10
 description: '运维了这么久服务器了，还是走弯路了，还得重构，我目前理想中的私有服务器架构。'
 image: ''
 tags: [linux]
