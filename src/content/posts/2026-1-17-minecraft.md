@@ -80,3 +80,40 @@ rcon-cli execute in minecraft:the_end run forceload remove 128 0
 |------ |------|
 | [easyauth](https://modrinth.com/mod/easyauth) | 为离线/在线服务器安装认证模组 |
 | [spark](https://modrinth.com/mod/spark) | 一款面向 Minecraft 客户端、服务器和代理的性能分析工具。 |
+| [velocity](https://papermc.io/software/velocity/) | Velocity 是现代的高性能代理。 |
+| [Simple Voice Chat](https://modrinth.com/plugin/simple-voice-chat) | 服务器语音。 |
+| [fabricproxy-lite](https://modrinth.com/mod/fabricproxy-lite) | velocity代理后端。 |
+
+## 管理架构
+# srv
+在dns解析那里，添加一个记录，把minecraft.cannian.space解析到你服务器的对应非25565端口上，防止脚本小子扫。
+# frp
+代理内网机器的tcp流量，打开`transport.proxyProtocolVersion = "v2"`这个，可以把源ip给一起发到frpc里，
+# velocity
+着重看这几个配置：
+- player-info-forwarding-mode = "modern" #这个用来给后端传递真实ip和secret(不要也罢，服务器在docker里跑，端口反正也不暴露)
+- haproxy-protocol = true #解析frp的`proxyProtocol`
+- 禁止用ip登录，限定只能用指定域名访问服务器，防止脚本小子扫ip端口进来。
+这个配置创建了两个服务器，一个是有服务的一个是没服务的。`try`的话就是普通非force-host指定的域名和ip连接进来的，如果是你指定的域名就会直接走forced-hosts连接进服务器里
+```toml
+[servers]
+# Configure your servers here. Each key represents the server's name, and the value
+# represents the IP address of the server to connect to.
+bzl_mc = "server0:25565"
+blackhole = "127.0.0.1:1"
+
+# In what order we should try servers when a player logs in or is kicked from a server.
+try = [
+    "blackhole"
+]
+
+[forced-hosts]
+# Configure your forced hosts here.
+"cannian.space" = [
+    "bzl_mc"
+]
+```
+用代理好处多多，不会有异地顶号的问题，还有可以让easyauth的同ip免登录功能生效，因为原生的mc服务端没法解析`proxyProtocol`，所以所有的连接都是从本地的frp的容器发起的。
+# 服务器模组
+velocity、easyauth。
+感觉这样应该是离线服的安全性的最终形态了，记得写脚本把存档定时备份到nas上，存算分离很重要。应该很久都不会再折腾我的世界了。
