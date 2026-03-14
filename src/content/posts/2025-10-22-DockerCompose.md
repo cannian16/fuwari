@@ -1,5 +1,5 @@
 ---
-title: Docker备忘
+title: Docker Compose
 published: 2025-10-22
 description: '搬运一下别的up的资源'
 image: ''
@@ -25,7 +25,7 @@ docker cp <服务名>:/[路径]
 docker compose exec <服务名> sh #进入正在后台运行的服务容器内
 docker compose exec <服务名> [指令] #直接在bash运行指令但不进入
 docker compose ps #列出当前compose在运行什么服务
-docker compose restart
+docker compose restart #更新了compose不要用这个，这个不会更新，只是快速重启
 ```
 ## docker-compose.yml
 ```yml

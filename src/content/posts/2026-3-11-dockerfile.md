@@ -32,7 +32,7 @@ sudo systemctl restart docker
 
 # dockerfile
 也是仔细用了一docker build方面的，我觉得所有的服务都要用docker来统一部署可能是最优解，干干净净，利利索索，nginx，frp，wireguard这种也得用docker部署。vim，tmux这种工具直接在本地安装。redis，数据库也都用docker，实在是干净了，docker的网络分组也能很好的把内外网服务分开了，很舒服，不要再用systemctl部署了！
-```docker-compose.yml
+```Dockerfile
 # 使用轻量级 Python 镜像，保持镜像体积在 200MB 以内
 FROM python:3.14-slim AS builder
 
@@ -61,6 +61,26 @@ CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:5000", "app:create_app()"]、
 ```
 这个dockerfile分为了build阶段和最终镜像，相当与是uv只在build阶段安装，用它sync一下，然后就扔了，之后把他下载的依赖复制一份到最终镜像。
 真灵活啊，这么部署之后试试弄ci\cd。这样部署就不需要用dotenv了，直接用docker compose的环境变量就行了，太方便了有点。
+```text
+#.dockerignore
+.env
+.git
+.gitignore
+__pycache__
+instance
+.venv
+README.md
+blog-documentation.html
+main.py
+.dockerignore
+Dockerfile
+collections
+.python-version
+```
+构建命令，-t=指定镜像名称，`.`构建当前目录的dockerfile
+```bash
+docker build -t flask_backend .
+```
 
 # docker网络
 就像之前说的，这里面的水挺深的，不过整体上就和普通的网络管理其实区别不大，每个容器都有一个自己的ip，可以划分网络段，就有点像vlan一样的，但是他没法两个网络之间直接通信，必须要中间有一个容器横跨两个网络段才能实现通信。
