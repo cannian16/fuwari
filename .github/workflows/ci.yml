@@ -7,7 +7,7 @@ on:
     branches: [ main ] # Adjust branches as needed
 
 env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+  PUBLIC_API_BASE: ${{ secrets.PUBLIC_API_BASE }} #读生产环境的api地址
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}

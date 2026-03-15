@@ -16,6 +16,7 @@ pnpm-debug.log*
 # environment variables
 .env
 .env.production
+.env.development
 
 # macOS-specific files
 .DS_Store
@@ -27,7 +28,4 @@ bun.lockb
 yarn.lock
 
 # ide
-.idea
-*.iml
-
 .vscode/
