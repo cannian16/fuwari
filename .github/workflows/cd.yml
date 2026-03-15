@@ -15,7 +15,7 @@ jobs:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
       - name: Download Build Artifacts
-        uses: actions/download-artifact
+        uses: actions/download-artifact@v4
         with:
           name: dist 
           run-id: ${{ github.event.workflow_run.id }} # 下载对应 workflow run 的产物
