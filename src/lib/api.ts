@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_BASE = import.meta.env.PUBLIC_API_BASE;
+const API_BASE = import.meta.env.PUBLIC_API_BASE || "https://api.cannian.space";
 
 const api = axios.create({
 	baseURL: API_BASE,
