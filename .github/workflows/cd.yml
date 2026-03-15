@@ -14,6 +14,10 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
+      - name: Verify ID
+        run: |
+          echo "正在尝试下载来自 Run ID: ${{ github.event.workflow_run.id }} 的产物"
+
       - name: Download Build Artifacts
         uses: actions/download-artifact@v4
         with:
