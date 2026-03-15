@@ -37,4 +37,4 @@ jobs:
         
       - name: Deploy with rsync
         run: |
-          ssh -i ~/.ssh/id_ed25519 -o BatchMode=yes -o LogLevel=VERBOSE github-action@cannian.space "exit"
+          rsync -avz --delete -n -e "ssh -i ~/.ssh/id_ed25519" ./dist/ github-action@cannian.space:/var/www/cannian/
