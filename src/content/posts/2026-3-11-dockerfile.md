@@ -80,6 +80,8 @@ collections
 构建命令，-t=指定镜像名称，`.`构建当前目录的dockerfile
 ```bash
 docker build -t flask_backend .
+#如果构建了很多次，之前的镜像都一直在没删可以用这个一键删了
+docker image prune
 ```
 
 # docker网络
