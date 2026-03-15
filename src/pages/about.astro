@@ -1,11 +1,12 @@
 ---
-import TechStackMarquee from "@components/feature/about/TechStackMarquee.svelte";
-import HorizontalCardScroller from "@components/feature/about/HorizontalCardScroller.svelte";
 import { getEntry, render } from "astro:content";
+import HorizontalCardScroller from "@components/feature/about/HorizontalCardScroller.svelte";
+import TechStackMarquee from "@components/feature/about/TechStackMarquee.svelte";
 import Markdown from "@components/misc/Markdown.astro";
 import I18nKey from "../i18n/i18nKey";
 import { i18n } from "../i18n/translation";
 import MainGridLayout from "../layouts/MainGridLayout.astro";
+
 const aboutPost = await getEntry("spec", "about");
 
 if (!aboutPost) {
@@ -13,7 +14,6 @@ if (!aboutPost) {
 }
 
 const { Content } = await render(aboutPost);
-
 ---
 <MainGridLayout title={i18n(I18nKey.about)} description={i18n(I18nKey.about)}>
     <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">

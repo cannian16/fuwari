@@ -1,25 +1,25 @@
 <script>
-  export let imgUrl = '';
-  export let title = '';
-  export let subtitle = '';
-  export let content = '';
-  export let url = '';
-  
-  // 使用可靠的方案
-  let isHovered = false;
-  
-  // 动态样式
-  $: containerStyle = `
+export let imgUrl = "";
+export let title = "";
+export let subtitle = "";
+export let content = "";
+export let url = "";
+
+// 使用可靠的方案
+let isHovered = false;
+
+// 动态样式
+$: containerStyle = `
     width: 256px;
     height: ${isHovered ? 340 : 256}px;
     transition: height 0.5s ease-out;
   `;
-  
-  $: imageStyle = `
+
+$: imageStyle = `
     height: 240px;
     background-image: url('${imgUrl}');
-    filter: ${isHovered ? 'blur(0)' : 'blur(25px)'};
-    background-size: ${isHovered ? '110%' : '100%'};
+    filter: ${isHovered ? "blur(0)" : "blur(25px)"};
+    background-size: ${isHovered ? "110%" : "100%"};
   `;
 </script>
 

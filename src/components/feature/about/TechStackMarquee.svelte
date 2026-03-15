@@ -1,47 +1,47 @@
 <script>
-  import { onMount } from 'svelte';
-  import api from '@lib/api';
-  
-  let speed = 35;
-  let isPaused = false;
-  const rowCount = 3;
-  let Skills = [];
-  let rows = [];
+import api from "@lib/api";
+import { onMount } from "svelte";
 
-  async function fetchSkills() {
-    try {
-      const response = await api.get('skills/get');
-      Skills = response.data;
-    } catch (err) {
-      console.error('获取技术栈数据失败:', err);
-    }
-  }
-  onMount(() => {
-    fetchSkills();
-  });
+let speed = 35;
+let isPaused = false;
+const rowCount = 3;
+let Skills = [];
+let rows = [];
 
-  $: {
-      // 1. 初始化空数组
-      let tempRows = [];
-      // 2. 计算每行要放几个 (math.ceil 就是 Python 的 math.ceil)
-      const itemsPerRow = Math.ceil(Skills.length / rowCount);
-      
-      // 3. 传统循环
-      for (let i = 0; i < rowCount; i++) {
-          const start = i * itemsPerRow;
-          const end = start + itemsPerRow;
-          
-          // 切片 (Python 的切片是 items[start:end])
-          let chunk = Skills.slice(start, end);
-          
-          // 4. 重复一遍 (相当于 Python 的 chunk + chunk)
-          let doubledChunk = [...chunk, ...chunk];
-          
-          // 5. 存入结果
-          tempRows.push(doubledChunk);
-      }
-      rows = tempRows;
-  }
+async function fetchSkills() {
+	try {
+		const response = await api.get("skills/get");
+		Skills = response.data;
+	} catch (err) {
+		console.error("获取技术栈数据失败:", err);
+	}
+}
+onMount(() => {
+	fetchSkills();
+});
+
+$: {
+	// 1. 初始化空数组
+	let tempRows = [];
+	// 2. 计算每行要放几个 (math.ceil 就是 Python 的 math.ceil)
+	const itemsPerRow = Math.ceil(Skills.length / rowCount);
+
+	// 3. 传统循环
+	for (let i = 0; i < rowCount; i++) {
+		const start = i * itemsPerRow;
+		const end = start + itemsPerRow;
+
+		// 切片 (Python 的切片是 items[start:end])
+		let chunk = Skills.slice(start, end);
+
+		// 4. 重复一遍 (相当于 Python 的 chunk + chunk)
+		let doubledChunk = [...chunk, ...chunk];
+
+		// 5. 存入结果
+		tempRows.push(doubledChunk);
+	}
+	rows = tempRows;
+}
 </script>
 
 <div class="w-full bg-gray-50 dark:bg-gray-900 rounded-xl p-4 space-y-4">

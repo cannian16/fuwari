@@ -1,18 +1,18 @@
 <script>
-import { onMount } from "svelte";
 import api from "@lib/api";
+import { onMount } from "svelte";
 
 let loading = false;
 let error = "";
 let links = [];
 // 友情链接数据
 async function fetchLinks() {
-    loading = true;
-    error = "";
-    try {
-        const response = await api.get("links/get");
-        links = response.data;
-    } catch (err) {
+	loading = true;
+	error = "";
+	try {
+		const response = await api.get("links/get");
+		links = response.data;
+	} catch (err) {
 		if (err.response) {
 			error = `获取友链失败: ${err.response.data.error || err.response.status}`;
 		} else if (err.request) {
@@ -21,9 +21,9 @@ async function fetchLinks() {
 			error = `请求发出失败: ${err.message}`;
 		}
 		console.error("获取友链列表失败:", err);
-    } finally {
-        loading = false;
-    }
+	} finally {
+		loading = false;
+	}
 }
 
 //组件挂载时获取友链数据

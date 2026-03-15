@@ -1,7 +1,7 @@
 <!-- MessageBoard.svelte -->
 <script>
-import { onMount } from "svelte";
 import api from "@lib/api";
+import { onMount } from "svelte";
 
 // 状态变量
 let messages = [];

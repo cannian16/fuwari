@@ -1,73 +1,74 @@
 <script>
-  import { onMount } from 'svelte';
-  import api from '@lib/api';
-  
-  let isPlaying = false;
-  let audioElement;
-  let currentSongIndex = 0;
-  let songs = [];
-  
-  async function fetchSongs() {
-    try {
-      const response = await api.get('songs/get');
-      songs = response.data;
-      if (songs.length > 0) {
-        audioElement.src = songs[currentSongIndex].url;
-      }
-    } catch (err) {
-      console.error('获取歌单失败:', err);
-    }
-  }
-  // 初始化歌单
-  onMount(() => {
-    fetchSongs();
-    if (songs.length > 0) {
-      audioElement.src = songs[currentSongIndex].url;
-    }
-  });
-  
-  // 播放/暂停切换 - 简化版本
-  const togglePlay = () => {
-    if (!audioElement || songs.length === 0) return;
-    
-    if (isPlaying) {
-      audioElement.pause();
-    } else {
-      audioElement.play();
-    }
-  };
-  
-  // 播放下一首
-  const playNext = () => {
-    if (songs.length === 0) return;
-    
-    currentSongIndex = (currentSongIndex + 1) % songs.length;
-    audioElement.src = songs[currentSongIndex].url;
-    audioElement.play();
-  };
-  
-  // 播放上一首
-  const playPrevious = () => {
-    if (songs.length === 0) return;
-    
-    currentSongIndex = currentSongIndex === 0 ? songs.length - 1 : currentSongIndex - 1;
-    audioElement.src = songs[currentSongIndex].url;
-    audioElement.play();
-  };
-  
-  // 音频事件处理
-  const handlePlay = () => {
-    isPlaying = true;
-  };
-  
-  const handlePause = () => {
-    isPlaying = false;
-  };
-  
-  const handleEnded = () => {
-    isPlaying = false; // 歌曲结束，设置为暂停状态
-    playNext(); // 播放下一首
-  };
+import api from "@lib/api";
+import { onMount } from "svelte";
+
+let isPlaying = false;
+let audioElement;
+let currentSongIndex = 0;
+let songs = [];
+
+async function fetchSongs() {
+	try {
+		const response = await api.get("songs/get");
+		songs = response.data;
+		if (songs.length > 0) {
+			audioElement.src = songs[currentSongIndex].url;
+		}
+	} catch (err) {
+		console.error("获取歌单失败:", err);
+	}
+}
+// 初始化歌单
+onMount(() => {
+	fetchSongs();
+	if (songs.length > 0) {
+		audioElement.src = songs[currentSongIndex].url;
+	}
+});
+
+// 播放/暂停切换 - 简化版本
+const togglePlay = () => {
+	if (!audioElement || songs.length === 0) return;
+
+	if (isPlaying) {
+		audioElement.pause();
+	} else {
+		audioElement.play();
+	}
+};
+
+// 播放下一首
+const playNext = () => {
+	if (songs.length === 0) return;
+
+	currentSongIndex = (currentSongIndex + 1) % songs.length;
+	audioElement.src = songs[currentSongIndex].url;
+	audioElement.play();
+};
+
+// 播放上一首
+const playPrevious = () => {
+	if (songs.length === 0) return;
+
+	currentSongIndex =
+		currentSongIndex === 0 ? songs.length - 1 : currentSongIndex - 1;
+	audioElement.src = songs[currentSongIndex].url;
+	audioElement.play();
+};
+
+// 音频事件处理
+const handlePlay = () => {
+	isPlaying = true;
+};
+
+const handlePause = () => {
+	isPlaying = false;
+};
+
+const handleEnded = () => {
+	isPlaying = false; // 歌曲结束，设置为暂停状态
+	playNext(); // 播放下一首
+};
 </script>
 
 <div class="pb-4 card-base">
