@@ -23,6 +23,7 @@ jobs:
         with:
           name: dist 
           run-id: ${{ github.event.workflow_run.id }} # 下载对应 workflow run 的产物
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           path: ./dist # 下载到当前目录下的 dist 文件夹
 
       - name: Setup SSH
