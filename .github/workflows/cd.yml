@@ -14,10 +14,6 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
-      - name: Verify ID
-        run: |
-          echo "正在尝试下载来自 Run ID: ${{ github.event.workflow_run.id }} 的产物"
-
       - name: Download Build Artifacts
         uses: actions/download-artifact@v4
         with:
@@ -28,19 +24,17 @@ jobs:
 
       - name: Setup SSH
         run: |
-          # 1. 创建 .ssh 目录
           mkdir -p ~/.ssh
 
-          # 2. 把 GitHub Secret 中的私钥写进文件
-          # 使用 eval 可以安全地处理换行符
+          # 把 GitHub Secret 中的私钥写进文件
           echo "${{ secrets.DEPLOY_SERVER_SSH_KEY }}" > ~/.ssh/id_ed25519
 
-          # 3. 设置严格的权限 (SSH 协议强制要求)
+          # 设置严格的权限 (SSH 协议强制要求)
           chmod 600 ~/.ssh/id_ed25519
 
-          # 4. 忽略主机指纹检查 (这样就不会卡住)
+          # 忽略主机指纹检查 
           echo "StrictHostKeyChecking no" >> ~/.ssh/config
         
       - name: Deploy with rsync
         run: |
-          rsync -avz --delete -e "ssh -i ~/.ssh/id_ed25519" ./dist/ github-action@cannian.space:/var/www/cannian/
+          rsync -avz --delete -n -e "ssh -i ~/.ssh/id_ed25519" ./dist/ github-action@cannian.space:/var/www/cannian/
