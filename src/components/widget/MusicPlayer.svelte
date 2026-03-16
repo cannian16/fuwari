@@ -1,30 +1,18 @@
 <script>
-// import api from "@lib/api";
-// import { onMount } from "svelte";
+import { onMount } from "svelte";
 
 let isPlaying = false;
 let audioElement;
 let currentSongIndex = 0;
 export let songs = [];
 
-// async function fetchSongs() {
-// 	try {
-// 		const response = await api.get("songs/get");
-// 		songs = response.data;
-// 		if (songs.length > 0) {
-// 			audioElement.src = songs[currentSongIndex].url;
-// 		}
-// 	} catch (err) {
-// 		console.error("获取歌单失败:", err);
-// 	}
-// }
-// // 初始化歌单
-// onMount(() => {
-// 	fetchSongs();
-// 	if (songs.length > 0) {
-// 		audioElement.src = songs[currentSongIndex].url;
-// 	}
-// });
+
+// 初始化歌单
+onMount(() => {
+	if (songs.length > 0) {
+		audioElement.src = songs[currentSongIndex].url;
+	}
+});
 
 // 播放/暂停切换 - 简化版本
 const togglePlay = () => {
