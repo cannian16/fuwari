@@ -3,9 +3,26 @@ import { getEntry, render } from "astro:content";
 import HorizontalCardScroller from "@components/feature/about/HorizontalCardScroller.svelte";
 import TechStackMarquee from "@components/feature/about/TechStackMarquee.svelte";
 import Markdown from "@components/misc/Markdown.astro";
+import api from "@lib/api";
 import I18nKey from "../i18n/i18nKey";
 import { i18n } from "../i18n/translation";
 import MainGridLayout from "../layouts/MainGridLayout.astro";
+
+let skillsData = [];
+try {
+	const response = await api.get("skills/get");
+	skillsData = response.data;
+} catch (err) {
+	console.error("构建时 API 请求失败:", err);
+}
+
+let toolsData = [];
+try {
+	const response = await api.get("tools/get");
+	toolsData = response.data;
+} catch (err) {
+	console.error("构建时 API 请求失败:", err);
+}
 
 const aboutPost = await getEntry("spec", "about");
 
@@ -27,7 +44,7 @@ const { Content } = await render(aboutPost);
                     我使用过的，正在使用的，或者计划使用的各种工程工具、开发语言和框架、运维工具都在这里展示。
                 </p>
             </Markdown>
-            <TechStackMarquee client:load />
+            <TechStackMarquee client:load Skills={skillsData} />
             <Markdown class="mt-4">
                 <h2>桌面工具库</h2>
             </Markdown>
@@ -36,6 +53,7 @@ const { Content } = await render(aboutPost);
               gap={8}
               showScrollbar={true}
               snap={true}
+              cards={toolsData}
             />
             
         </div>

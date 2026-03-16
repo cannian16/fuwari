@@ -1,9 +1,9 @@
 <script>
-import api from "@lib/api";
+// import api from "@lib/api";
 import { onDestroy, onMount } from "svelte";
 import CardBentEdgeFixed from "./CardComponent.svelte";
 
-let cards = [];
+export let cards = [];
 export let gap = 6;
 export let snap = true;
 
@@ -15,14 +15,14 @@ let velocity = 0;
 let animationFrame;
 let currentFocusIndex = 0;
 
-async function fetchCards() {
-	try {
-		const response = await api.get("tools/get");
-		cards = response.data;
-	} catch (error) {
-		console.error("获取工具列表失败:", error);
-	}
-}
+// async function fetchCards() {
+// 	try {
+// 		const response = await api.get("tools/get");
+// 		cards = response.data;
+// 	} catch (error) {
+// 		console.error("获取工具列表失败:", error);
+// 	}
+// }
 
 const handleMouseDown = (e) => {
 	isDragging = true;
@@ -184,7 +184,7 @@ onMount(() => {
 			}
 		}, 100);
 	}
-	fetchCards();
+	// fetchCards();
 });
 
 onDestroy(() => {
