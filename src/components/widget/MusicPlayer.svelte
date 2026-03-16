@@ -6,7 +6,6 @@ let audioElement;
 let currentSongIndex = 0;
 export let songs = [];
 
-
 // 初始化歌单
 onMount(() => {
 	if (songs.length > 0) {
