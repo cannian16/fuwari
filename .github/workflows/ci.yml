@@ -47,7 +47,7 @@ jobs:
       - name: Type Check
         run: pnpm astro check
       - name: Production Build
-        run: pnpm astro build
+        run: pnpm astro build && pnpm pagefind --site dist
 
       - name: Upload Build Artifacts
         uses: actions/upload-artifact@v4
