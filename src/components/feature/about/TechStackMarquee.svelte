@@ -1,24 +1,9 @@
 <script>
-// import api from "@lib/api";
-// import { onMount } from "svelte";
-
 let speed = 35;
 let isPaused = false;
 const rowCount = 3;
 export let Skills = [];
 let rows = [];
-
-// async function fetchSkills() {
-// 	try {
-// 		const response = await api.get("skills/get");
-// 		Skills = response.data;
-// 	} catch (err) {
-// 		console.error("获取技术栈数据失败:", err);
-// 	}
-// }
-// onMount(() => {
-// 	fetchSkills();
-// });
 
 $: {
 	// 1. 初始化空数组

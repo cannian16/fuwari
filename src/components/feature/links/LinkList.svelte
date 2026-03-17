@@ -1,46 +1,6 @@
 <script>
-import api from "@lib/api";
-import { onMount } from "svelte";
-
-let loading = false;
-let error = "";
-let links = [];
-// 友情链接数据
-async function fetchLinks() {
-	loading = true;
-	error = "";
-	try {
-		const response = await api.get("links/get");
-		links = response.data;
-	} catch (err) {
-		if (err.response) {
-			error = `获取友链失败: ${err.response.data.error || err.response.status}`;
-		} else if (err.request) {
-			error = "网络错误，无法连接到服务器";
-		} else {
-			error = `请求发出失败: ${err.message}`;
-		}
-		console.error("获取友链列表失败:", err);
-	} finally {
-		loading = false;
-	}
-}
-
-//组件挂载时获取友链数据
-onMount(() => {
-	fetchLinks();
-});
+export let links = [];
 </script>
-
-{#if error}
-    <div class="text-red-500 text-sm mb-4">{error}</div>
-{/if}
-
-{#if loading}
-    <div class="text-center py-8">加载中...</div>
-{:else if links.length === 0}
-    <div class="text-center py-8">暂无友链</div>
-{:else}
     <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
         <div class="card-base z-10 px-9 py-6 relative w-full ">
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-8 my-4">
@@ -66,4 +26,4 @@ onMount(() => {
             </div>
         </div>
     </div>
-{/if}
+<!-- {/if} -->

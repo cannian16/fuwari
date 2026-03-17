@@ -1,7 +1,16 @@
 ---
 import LinksList from "@components/feature/links/LinkList.svelte";
+import api from "@lib/api";
 import MainGridLayout from "../layouts/MainGridLayout.astro";
+
+let linksData = [];
+try {
+	const response = await api.get("links/get");
+	linksData = response.data;
+} catch (err) {
+	console.error("构建时 API 请求失败:", err);
+}
 ---
 <MainGridLayout title="友链" description="友链">
-    <LinksList client:load/>
+    <LinksList links={linksData} />
 </MainGridLayout>
