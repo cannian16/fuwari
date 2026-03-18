@@ -3,29 +3,30 @@ import I18nKey from "@i18n/i18nKey";
 import { i18n } from "@i18n/translation";
 import { getCategoryUrl } from "@utils/url-utils.ts";
 
-// // Retrieve posts and sort them by publication date
 async function getRawSortedPosts() {
-	const allBlogPosts = await getCollection("posts", ({ data }) => {
-		return import.meta.env.PROD ? data.draft !== true : true;
-	});
+    // 1. 获取所有文章
+    const allBlogPosts = await getCollection("posts");
 
-	const sorted = allBlogPosts.sort((a, b) => {
-		const dateA = new Date(a.data.published);
-		const dateB = new Date(b.data.published);
-		return dateA > dateB ? -1 : 1;
-	});
-	return sorted;
+    // 2. 过滤草稿 (保持原来的逻辑，但代码更清晰)
+    const visiblePosts = allBlogPosts.filter(({ data }) => {
+        return import.meta.env.PROD ? data.draft !== true : true;
+    });
+
+    // 3. 排序 (直接对比时间戳，最利索)
+    return visiblePosts.sort((a, b) => {
+        return b.data.published.getTime() - a.data.published.getTime();
+    });
 }
 
 export async function getSortedPosts() {
 	const sorted = await getRawSortedPosts();
 
 	for (let i = 1; i < sorted.length; i++) {
-		sorted[i].data.nextSlug = sorted[i - 1].slug;
+		sorted[i].data.nextSlug = sorted[i - 1].id;
 		sorted[i].data.nextTitle = sorted[i - 1].data.title;
 	}
 	for (let i = 0; i < sorted.length - 1; i++) {
-		sorted[i].data.prevSlug = sorted[i + 1].slug;
+		sorted[i].data.prevSlug = sorted[i + 1].id;
 		sorted[i].data.prevTitle = sorted[i + 1].data.title;
 	}
 
@@ -40,7 +41,7 @@ export async function getSortedPostsList(): Promise<PostForList[]> {
 
 	// delete post.body
 	const sortedPostsList = sortedFullPosts.map((post) => ({
-		slug: post.slug,
+		slug: post.id,
 		data: post.data,
 	}));
 
