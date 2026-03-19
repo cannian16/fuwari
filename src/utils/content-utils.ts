@@ -4,15 +4,10 @@ import { i18n } from "@i18n/translation";
 import { getCategoryUrl } from "@utils/url-utils.ts";
 
 async function getRawSortedPosts() {
-    // 1. 获取所有文章
     const allBlogPosts = await getCollection("posts");
-
-    // 2. 过滤草稿 (保持原来的逻辑，但代码更清晰)
     const visiblePosts = allBlogPosts.filter(({ data }) => {
         return import.meta.env.PROD ? data.draft !== true : true;
     });
-
-    // 3. 排序 (直接对比时间戳，最利索)
     return visiblePosts.sort((a, b) => {
         return b.data.published.getTime() - a.data.published.getTime();
     });
@@ -22,18 +17,18 @@ export async function getSortedPosts() {
 	const sorted = await getRawSortedPosts();
 
 	for (let i = 1; i < sorted.length; i++) {
-		sorted[i].data.nextSlug = sorted[i - 1].id;
+		sorted[i].data.nextId = sorted[i - 1].id;
 		sorted[i].data.nextTitle = sorted[i - 1].data.title;
 	}
 	for (let i = 0; i < sorted.length - 1; i++) {
-		sorted[i].data.prevSlug = sorted[i + 1].id;
+		sorted[i].data.prevId = sorted[i + 1].id;
 		sorted[i].data.prevTitle = sorted[i + 1].data.title;
 	}
 
 	return sorted;
 }
 export type PostForList = {
-	slug: string;
+	id: string;
 	data: CollectionEntry<"posts">["data"];
 };
 export async function getSortedPostsList(): Promise<PostForList[]> {
@@ -41,7 +36,7 @@ export async function getSortedPostsList(): Promise<PostForList[]> {
 
 	// delete post.body
 	const sortedPostsList = sortedFullPosts.map((post) => ({
-		slug: post.id,
+		id: post.id,
 		data: post.data,
 	}));
 
