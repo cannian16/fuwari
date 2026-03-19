@@ -4,13 +4,13 @@ import { i18n } from "@i18n/translation";
 import { getCategoryUrl } from "@utils/url-utils.ts";
 
 async function getRawSortedPosts() {
-    const allBlogPosts = await getCollection("posts");
-    const visiblePosts = allBlogPosts.filter(({ data }) => {
-        return import.meta.env.PROD ? data.draft !== true : true;
-    });
-    return visiblePosts.sort((a, b) => {
-        return b.data.published.getTime() - a.data.published.getTime();
-    });
+	const allBlogPosts = await getCollection("posts");
+	const visiblePosts = allBlogPosts.filter(({ data }) => {
+		return import.meta.env.PROD ? data.draft !== true : true;
+	});
+	return visiblePosts.sort((a, b) => {
+		return b.data.published.getTime() - a.data.published.getTime();
+	});
 }
 
 export async function getSortedPosts() {

@@ -169,12 +169,10 @@ onMount(() => {
 
 		setTimeout(() => {
 			if (container) {
-				container.focus();
 				container.dispatchEvent(new Event("scroll"));
 			}
 		}, 100);
 	}
-	// fetchCards();
 });
 
 onDestroy(() => {
