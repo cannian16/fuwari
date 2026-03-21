@@ -33,8 +33,23 @@ jobs:
     needs: lint # 等lint 过了再检查
     runs-on: ubuntu-latest  
     steps:
-      - name: Checkout Source Code
-        uses: actions/checkout@v4 
+      - name: Checkout Fuwari
+        uses: actions/checkout@v4
+        with:
+          path: fuwari
+      - name: Checkout Posts
+        uses: actions/checkout@v4
+        with:
+          repository: cannian16/posts
+          token: ${{ secrets.POSTS_TOKEN }}
+          path: posts
+      
+      - name: Sync Posts to Theme
+        run: |
+          rm -rf fuwari/src/content/posts
+          mkdir -p fuwari/src/content/posts
+          cp -r posts/* fuwari/src/content/posts/
+      
       - name: Setup pnpm
         uses: pnpm/action-setup@v4 
       - name: Setup Node.js
@@ -42,15 +57,20 @@ jobs:
         with:
           node-version: 22
           cache: 'pnpm'
+          cache-dependency-path: 'fuwari/pnpm-lock.yaml'
+      
       - name: Install Dependencies
+        working-directory: ./fuwari
         run: pnpm install --frozen-lockfile
       - name: Type Check
+        working-directory: ./fuwari
         run: pnpm astro check
       - name: Production Build
+        working-directory: ./fuwari
         run: pnpm astro build && pnpm pagefind --site dist
 
       - name: Upload Build Artifacts
         uses: actions/upload-artifact@v4
         with:
           name: dist               # 产物的名字（下载时要用同样的名字）
-          path: dist/
+          path: fuwari/dist/
