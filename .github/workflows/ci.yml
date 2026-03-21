@@ -52,13 +52,14 @@ jobs:
       
       - name: Setup pnpm
         uses: pnpm/action-setup@v4 
+        with:
+          package_json_file: 'fuwari/package.json'
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: 'pnpm'
           cache-dependency-path: 'fuwari/pnpm-lock.yaml'
-          version: 9
       
       - name: Install Dependencies
         working-directory: ./fuwari
