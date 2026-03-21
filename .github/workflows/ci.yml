@@ -46,7 +46,6 @@ jobs:
       
       - name: Sync Posts to Theme
         run: |
-          rm -rf fuwari/src/content/posts
           mkdir -p fuwari/src/content/posts
           cp -r posts/* fuwari/src/content/posts/
       
