@@ -58,7 +58,7 @@ jobs:
           node-version: 22
           cache: 'pnpm'
           cache-dependency-path: 'fuwari/pnpm-lock.yaml'
-          package_json_file: 'fuwari/package.json'
+          version: 9
       
       - name: Install Dependencies
         working-directory: ./fuwari
