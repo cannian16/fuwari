@@ -29,3 +29,6 @@ yarn.lock
 
 # ide
 .vscode/
+
+#忽略文章目录
+src/content/posts/
