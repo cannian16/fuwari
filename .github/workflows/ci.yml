@@ -5,7 +5,8 @@ on:
     branches: [ main ] # Adjust branches as needed
   pull_request:
     branches: [ main ] # Adjust branches as needed
-
+  repository_dispatch:
+    types: [ deploy-command ]
 env:
   PUBLIC_API_BASE: ${{ secrets.PUBLIC_API_BASE }} #读生产环境的api地址
 
