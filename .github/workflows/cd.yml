@@ -37,4 +37,5 @@ jobs:
         
       - name: Deploy with rsync
         run: |
+          cat ./dist/index.html 
           rsync -avz --delete -e "ssh -i ~/.ssh/id_ed25519" ./dist/ github-action@cannian.space:/var/www/cannian/
