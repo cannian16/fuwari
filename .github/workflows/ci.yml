@@ -64,10 +64,6 @@ jobs:
       - name: Install Dependencies
         working-directory: ./fuwari
         run: pnpm install --frozen-lockfile
-
-      - name: Clear Astro Cache
-        working-directory: ./fuwari
-        run: rm -rf node_modules/.astro
       
       - name: Type Check
         working-directory: ./fuwari
