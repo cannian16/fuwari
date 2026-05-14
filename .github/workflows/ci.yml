@@ -7,8 +7,6 @@ on:
     branches: [ main ] # Adjust branches as needed
   repository_dispatch:
     types: [ deploy-command ]
-env:
-  PUBLIC_API_BASE: ${{ secrets.PUBLIC_API_BASE }} #读生产环境的api地址
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -32,6 +30,7 @@ jobs:
   
   check-and-build:
     needs: lint # 等lint 过了再检查
+    environment: production
     runs-on: ubuntu-latest  
     steps:
       - name: Checkout Fuwari
@@ -41,7 +40,7 @@ jobs:
       - name: Checkout Posts
         uses: actions/checkout@v4
         with:
-          repository: cannian16/posts
+          repository: ${{ vars.POSTS_REPO }}
           token: ${{ secrets.POSTS_TOKEN }}
           path: posts
       
@@ -72,6 +71,8 @@ jobs:
       - name: Production Build
         working-directory: ./fuwari
         run: pnpm astro build && pnpm pagefind --site dist
+        env:
+          PUBLIC_API_BASE: ${{ vars.PUBLIC_API_BASE }}
 
       - name: Upload Build Artifacts
         uses: actions/upload-artifact@v4
