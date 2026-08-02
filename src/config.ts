@@ -83,7 +83,7 @@ export const profileConfig: ProfileConfig = {
 		{
 			name: "Email",
 			icon: "fa6-solid:envelope",
-			url: "mailto:1804781568@qq.com",
+			url: "mailto:haoze.xue@cannian.space",
 		},
 	],
 };
